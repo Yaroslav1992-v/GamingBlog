@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap");
+.container {
+  max-width: $maxWidth;
+  padding: 0 10px;
+  width: 100%;
+  margin: 0 auto;
+  &-big {
+    max-width: 1460px;
+  }
+}
+body {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}

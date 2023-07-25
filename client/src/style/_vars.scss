@@ -1,0 +1,23 @@
+$brand: #ffcda3;
+$brand-2: #fce2ce;
+$brand-3: #ffede5;
+$brand-4: #fff5ef;
+$primary: #46bcf2;
+$success: #16c79a;
+$danger: #ef4f4f;
+$warning: #f6c065;
+$info: #008891;
+$grey-900: #101010;
+$grey-700: #484848;
+$grey-400: #9a9a9a;
+$grey-100: #999999;
+$maxWidth: 1130px;
+$r-xl: 1120;
+$r-lg: 980;
+$r-m: 700;
+$r-sm: 450;
+@mixin media($r-xs) {
+  @media only screen and (max-width: ($r-xs + "px")) {
+    @content;
+  }
+}
