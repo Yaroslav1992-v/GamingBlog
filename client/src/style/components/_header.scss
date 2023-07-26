@@ -32,10 +32,13 @@
       position: absolute;
       flex-direction: column;
       transform: translateY(-3000px);
+      width: 100%;
+      z-index: 6564;
+      background-color: #fff;
+      border-bottom: 1px solid $grey-100;
     }
     &-active {
-      position: static;
-      transform: translateX(0);
+      transform: translateY(130px);
     }
   }
   &__burger {
@@ -130,42 +133,10 @@
     }
   }
   &__right {
-    transition: all 0.5s ease-in;
     display: flex;
     @include media($r-m) {
-      position: absolute;
-      top: 0;
-      transform: translateY(-3000px);
-    }
-    &-active {
-      position: static;
-      transform: translateX(0);
-    }
-    @include media($r-sm) {
-      flex-wrap: wrap-reverse;
-    }
-  }
-  &__auth {
-    max-width: 125px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    &-link {
-      padding: 12px 20px;
-      font-weight: 600;
-      border-radius: 10px;
-      transition: all 0.5s ease-in-out;
-      background-color: $grey-900;
-      border: 1px solid transparent;
-      color: #ffff;
-      &:hover {
-        background-color: $brand;
-        color: $grey-900;
-      }
-      &:focus {
-        border-color: $grey-900;
-      }
+      width: 100%;
+      justify-content: center;
     }
   }
 }

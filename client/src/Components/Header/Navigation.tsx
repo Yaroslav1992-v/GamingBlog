@@ -35,6 +35,11 @@ export const Navigation = () => {
       to: "contact",
       active: false,
     },
+    {
+      name: "Sign In",
+      to: "auth/login",
+      active: false,
+    },
   ];
   return (
     <nav className="navigation">
@@ -76,11 +81,6 @@ export const Navigation = () => {
           }
         >
           <Search />
-          <div className="navigation__auth">
-            <Link to={"auth"} className="navigation__auth-link">
-              Sign In
-            </Link>
-          </div>
         </div>
       </div>
     </nav>
