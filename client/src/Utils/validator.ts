@@ -47,7 +47,6 @@ export function validator(
       }
       case "match": {
         statusValidate = data !== secondData;
-
         break;
       }
       default:

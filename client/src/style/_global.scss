@@ -31,3 +31,12 @@ body {
     padding: 25px;
   }
 }
+.avatar {
+  border-radius: 50%;
+  background-color: $brand-2;
+  display: flex;
+  &-s {
+    height: 40px;
+    width: 40px;
+  }
+}

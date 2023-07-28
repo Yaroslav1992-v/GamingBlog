@@ -1,0 +1,13 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:4.4.4
+    container_name: gamingblog
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=yarikv1992kkp
+      - MONGO_INITDB_ROOT_PASSWORD=FIPpzp9cF5vw8nv2
+    ports:
+      - 27001:27001
+    volumes:
+      - ./mongo-data-4.4:/data/db

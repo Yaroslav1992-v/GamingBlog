@@ -28,6 +28,11 @@
       color: $grey-900;
     }
   }
+  &__error {
+    color: $danger;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
 }
 .text-field {
   max-width: 540px;
@@ -45,10 +50,15 @@
     font-weight: 700;
     background-color: $grey-50;
     outline-color: transparent;
-    border: none;
+    border-color: transparent;
+
     &-error {
       border: 2px solid $danger;
       margin-bottom: 5px;
+    }
+    &:focus,
+    &:active {
+      border: 2px solid $primary;
     }
   }
   &__error {

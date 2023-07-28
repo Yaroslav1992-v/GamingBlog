@@ -1,14 +1,8 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { Auth, Home } from "./Pages";
 import "./style/index.scss";
+import AppLoader from "./Hoc/AppLoader";
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="auth/*" element={<Auth />} />
-    </Routes>
-  );
+  return <AppLoader />;
 }
 
 export default App;

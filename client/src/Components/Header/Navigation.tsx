@@ -3,12 +3,16 @@ import { Logo } from "..";
 import { MenuProps } from "./header.props";
 import { Link } from "react-router-dom";
 import { Search } from "./Search";
+import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "../../store/auth";
+import { NavUser } from "./NavUser";
 
 export const Navigation = () => {
   const [open, setOpen] = useState<boolean>(false);
   const handleMenu = () => {
     setOpen((prevState) => !prevState);
   };
+  const isLoggedIn = useSelector(getIsLoggedIn());
   const menu: MenuProps[] = [
     {
       name: "Home",
@@ -81,6 +85,7 @@ export const Navigation = () => {
           }
         >
           <Search />
+          {isLoggedIn && <NavUser />}
         </div>
       </div>
     </nav>
