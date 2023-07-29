@@ -51,19 +51,12 @@
       display: block;
     }
   }
-
-  &__mode {
-    border-radius: 50%;
-    height: 40px;
+  .action-button {
     width: 57px;
-    display: flex;
-    align-items: center;
-    margin-right: 5px;
-    justify-content: center;
-    background-color: $grey-100;
+    @include media($r-m) {
+      width: 40px;
+    }
     svg {
-      height: 20px;
-      width: 20px;
       path {
         fill: $warning;
       }
@@ -107,7 +100,6 @@
   &__item {
     display: flex;
     align-items: center;
-
     &:not(:last-child) {
       margin-right: 15px;
     }

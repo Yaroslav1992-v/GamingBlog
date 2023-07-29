@@ -7,3 +7,7 @@ export * from "./Button/Button";
 export * from "./spinner/Spinner";
 export * from "./Avatar/Avatar";
 export * from "./footer/Footer";
+export * from "./Button/ActionBtn";
+export * from "./Fields/AvatarField";
+export * from "./Fields/TextArea";
+export * from "./Container/Box";

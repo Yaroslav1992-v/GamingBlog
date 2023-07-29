@@ -3,3 +3,6 @@ export interface MenuProps {
   to: string;
   active: boolean;
 }
+export interface NavUserProps {
+  url: string;
+}

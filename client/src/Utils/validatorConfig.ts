@@ -38,7 +38,7 @@ export const editValidator: ValidationConfig = {
     isRequired: { message: "Email is Required  " },
     isEmail: { message: "Invalid Email " },
   },
-  name: {
+  username: {
     isRequired: { message: "Name is Required" },
     min: {
       message: "account name must contain  at least 5 symbols",

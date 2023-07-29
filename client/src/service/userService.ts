@@ -7,12 +7,12 @@ const userService = {
     const { data } = await httpService.get(`${apiEndPoint}getById/${id}`, {});
     return data;
   },
-  //   editUser: async (user: User): Promise<User> => {
-  //     const { data } = await httpService.patch(`${apiEndPoint}edit`, {
-  //       ...user,
-  //     });
-  //     return data;
-  //   },
+  editUser: async (user: UserData): Promise<UserData> => {
+    const { data } = await httpService.patch(`${apiEndPoint}edit`, {
+      ...user,
+    });
+    return data;
+  },
 };
 
 export default userService;

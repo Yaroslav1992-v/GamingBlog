@@ -8,6 +8,9 @@ import { TypegooseModule } from 'nestjs-typegoose/dist/typegoose.module';
 import { getMongoConfig } from './configs/mongo.config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from './jwt/jwt.module';
+import { FileModule } from './file/file.module';
+import { FileController } from './file/file.controller';
+import { FileService } from './file/file.service';
 
 @Module({
   imports: [
@@ -21,9 +24,10 @@ import { JwtModule } from './jwt/jwt.module';
     UserModule,
     PassportModule,
     JwtModule,
+    FileModule,
   ],
 
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, FileController],
+  providers: [AppService, FileService],
 })
 export class AppModule {}

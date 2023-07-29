@@ -8,6 +8,6 @@ export interface Errors {
   email?: string;
   password?: string;
   username?: string;
-
   passwordMatch?: string;
+  image?: string;
 }

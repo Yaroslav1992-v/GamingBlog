@@ -48,17 +48,20 @@ export const RegisterForm = () => {
           placeholder="Username"
           error={errors?.username}
           inputRef={usernameRef}
+          name="username"
         />
         <TextField
           type="text"
           placeholder="Email"
           inputRef={emailRef}
+          name="email"
           error={errors?.email}
         />
         <TextField
           type="password"
           placeholder="Passowrd"
           inputRef={passwordRef}
+          name="password"
           error={
             errors?.passwordMatch ? errors.passwordMatch : errors?.password
           }
@@ -67,6 +70,7 @@ export const RegisterForm = () => {
           type="password"
           placeholder="Confirm Password"
           inputRef={passwordRepeatRef}
+          name="passwordMatch"
           error={errors?.passwordMatch}
         />
         <div className="form__bottom">

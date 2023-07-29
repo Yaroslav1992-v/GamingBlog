@@ -33,8 +33,14 @@ export const LoginForm = ({}) => {
     <div className="form">
       <h1 className="form__title">Login</h1>
       <form onSubmit={handleSubmit} className="form">
-        <TextField type="text" placeholder="Email" inputRef={emailRef} />
         <TextField
+          name="email"
+          type="text"
+          placeholder="Email"
+          inputRef={emailRef}
+        />
+        <TextField
+          name="password"
           type="password"
           placeholder="Passowrd"
           inputRef={passwordRef}

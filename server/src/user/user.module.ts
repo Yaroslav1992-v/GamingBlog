@@ -3,7 +3,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { UserModel } from './user.model/user.model';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule } from 'src/jwt/jwt.module';
 
 @Module({
   imports: [
@@ -15,7 +15,6 @@ import { JwtModule } from '@nestjs/jwt';
         },
       },
     ]),
-
     JwtModule,
   ],
   controllers: [UserController],

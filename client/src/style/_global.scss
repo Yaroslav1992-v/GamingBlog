@@ -10,6 +10,7 @@
     background-color: $grey-900;
   }
 }
+$fontFamily: "Poppins", sans-serif;
 body {
   font-family: "Source Sans 3", sans-serif;
   font-size: 16px;
@@ -23,7 +24,7 @@ body {
     background-color: $grey-900;
     color: #ffff;
     font-weight: 700;
-    font-family: "Poppins", sans-serif;
+    font-family: $fontFamily;
     transition: background-color 0.5s ease;
     &:hover {
       background-color: $grey-700;
@@ -52,4 +53,50 @@ body {
     height: 40px;
     width: 40px;
   }
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+.action-button {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: $grey-50;
+  position: relative;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  &-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  svg {
+    font-size: 24px;
+    fill: $primary;
+  }
+  &:hover,
+  &:focus {
+    .action-button__desc {
+      opacity: 1;
+    }
+  }
+  &__desc {
+    position: absolute;
+    top: 40px;
+    background-color: $brand;
+    display: flex;
+    width: 100px;
+    font-family: $fontFamily;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    justify-content: center;
+    border-radius: 10px;
+    color: $grey-900;
+    font-weight: 600;
+  }
+}
+.visually-hidden {
+  display: none;
 }

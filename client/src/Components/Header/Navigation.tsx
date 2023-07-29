@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Logo } from "..";
+import { ActionBtn, Logo } from "..";
 import { MenuProps } from "./header.props";
 import { Link } from "react-router-dom";
 import { Search } from "./Search";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../store/auth";
+import { getCurrentUser, getIsLoggedIn } from "../../store/auth";
 import { NavUser } from "./NavUser";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useApp } from "../../Hoc/AppLoader";
@@ -13,7 +13,7 @@ export const Navigation = () => {
   const handleMenu = () => {
     setOpen((prevState) => !prevState);
   };
-
+  const user = useSelector(getCurrentUser());
   const { mode, handleMode } = useApp();
   const isLoggedIn = useSelector(getIsLoggedIn());
   const menu: MenuProps[] = [
@@ -92,10 +92,14 @@ export const Navigation = () => {
           }
         >
           <Search />
-          <button onClick={handleMode} className="navigation__mode">
-            {mode === "dark" ? <BsSun /> : <BsMoon />}
-          </button>
-          {isLoggedIn && <NavUser />}
+          <ActionBtn
+            text="Light Mode"
+            type="button"
+            onClick={handleMode}
+            Icon={mode === "dark" ? <BsSun /> : <BsMoon />}
+          />
+
+          {isLoggedIn && <NavUser url={user?.image || ""} />}
         </div>
       </div>
     </nav>

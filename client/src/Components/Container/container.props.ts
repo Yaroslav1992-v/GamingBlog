@@ -5,4 +5,9 @@ export interface ContainerProps {
   size?: "big" | "normal";
   mode?: mode;
 }
+export interface BoxProps {
+  children: ReactNode;
+  className: string;
+  mode?: mode;
+}
 export type mode = "dark" | "light";

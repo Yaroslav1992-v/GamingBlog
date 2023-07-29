@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Auth, Home } from "../Pages";
+import { Auth, EditUser, Home, UserPage } from "../Pages";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn, loadCurrentUser } from "../store/auth";
@@ -41,6 +41,8 @@ const AppLoader = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="auth/*" element={<Auth />} />
+        <Route path="account/:id" element={<UserPage />} />
+        <Route path="account/:id/edit" element={<EditUser />} />
       </Routes>
     </AppContext.Provider>
   );

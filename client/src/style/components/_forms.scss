@@ -1,5 +1,10 @@
 .form {
   width: 100%;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   &__title {
     font-family: "Poppins", sans-serif;
     font-weight: 600;
@@ -80,6 +85,58 @@
     font-size: 14px;
     font-weight: 600;
     color: $grey-400;
+  }
+}
+.avatar-field {
+  margin-bottom: 20px;
+  &__avatar {
+    height: 200px;
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: $grey-100;
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  &-label {
+    height: 30px;
+    right: 0;
+    top: 30px;
+    width: 30px;
+    position: absolute;
+    display: flex;
+    background-color: $grey-50;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    svg {
+      height: 20px;
+      width: 20px;
+      path {
+        fill: $brand;
+      }
+    }
+  }
+}
+.textArea {
+  max-width: 540px;
+  width: 100%;
+  &__textArea {
+    border-radius: 10px;
+    color: $grey-400;
+    margin-bottom: 30px;
+    padding: 20px 25px;
+    border: 2px solid transparent;
+    font-weight: 700;
+    background-color: $grey-50;
+    width: 100%;
+    outline-color: transparent;
+    &:focus {
+      border-color: $primary;
+    }
   }
 }
 .container-dark {

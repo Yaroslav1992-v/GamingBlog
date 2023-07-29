@@ -28,12 +28,12 @@ export class UserEditDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(5)
-  name: string;
+  username: string;
   @IsEmail()
   @IsNotEmpty()
   email: string;
   @IsOptional()
   image?: string;
   @IsOptional()
-  status?: string;
+  info?: string;
 }

@@ -13,4 +13,6 @@ export class UserModel extends TimeStamps {
   image?: string;
   @prop()
   role?: 'admin' | 'user';
+  @prop()
+  info?: string;
 }

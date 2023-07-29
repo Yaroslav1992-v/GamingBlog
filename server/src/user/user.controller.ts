@@ -1,5 +1,17 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
+import { AuthGuard } from 'src/auth/guards/jwt.guard';
+import { UserEditDto } from './user.model/dto/user.dto';
+import { AuthUser } from 'src/Constants/constants';
 
 @Controller('user')
 export class UserController {
@@ -7,5 +19,20 @@ export class UserController {
   @Get('getById/:id')
   async findUserById(@Param('id') id: string) {
     return this.userService.findOneById(id);
+  }
+  @Patch('edit')
+  @UseGuards(AuthGuard)
+  async editUser(@Body() data: UserEditDto, @Req() req: AuthUser) {
+    try {
+      if (req.user.id !== data._id) {
+        throw new NotFoundException('Unathorized');
+      }
+      return this.userService.editUser(data);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 }

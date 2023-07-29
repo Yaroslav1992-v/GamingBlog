@@ -9,6 +9,8 @@ import localStorageService, { Token } from "../service/localStorageService";
 import { LoginData, RegisterData, UserData } from "./types";
 import authService from "../service/authService";
 import userService from "../service/userService";
+import { AppDispatch } from "./createStore";
+import fileService from "../service/fileService";
 
 interface AuthState {
   isLoading: boolean;
@@ -64,6 +66,13 @@ export const authSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+    userEditRequested: (state: AuthState) => {
+      state.isLoading = true;
+    },
+    userEdited: (state: AuthState, action: PayloadAction<UserData>) => {
+      state.currentUser = action.payload;
+      state.isLoading = false;
+    },
     loggedOut: (state: AuthState) => {
       state.isLoggedIn = false;
     },
@@ -97,10 +106,29 @@ export const signIn = (payload: LoginData) => async (dispatch: Dispatch) => {
     dispatch(authRequestFailed(message));
   }
 };
-// export const updateCurrentUser =
-//   (data: User | UserPlusData) => async (dispatch: Dispatch) => {
-//     dispatch(userReceived(data as UserData));
-//   };
+export const editUser =
+  (user: UserData, file?: File) => async (dispatch: AppDispatch) => {
+    let image;
+    try {
+      dispatch(userEditRequested());
+      if (file) {
+        image = await fileService.uploadFile(file);
+        if (user.image) {
+          await fileService.deleteFile(user.image);
+        }
+        user = { ...user, image: image };
+      }
+      const editedUser = await userService.editUser({
+        ...user,
+      });
+      dispatch(userEdited(editedUser));
+      return true;
+    } catch (error: any) {
+      console.log();
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(authRequestFailed(message));
+    }
+  };
 export const loadCurrentUser = () => async (dispatch: Dispatch) => {
   try {
     dispatch(userRequsted());
@@ -151,7 +179,9 @@ const {
   loggedOut,
   authRequested,
   authRequestFailed,
+  userEditRequested,
   userReceived,
+  userEdited,
 } = actions;
 
 export default authReducer;
