@@ -6,12 +6,15 @@ import { Search } from "./Search";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/auth";
 import { NavUser } from "./NavUser";
-
+import { BsSun, BsMoon } from "react-icons/bs";
+import { useApp } from "../../Hoc/AppLoader";
 export const Navigation = () => {
   const [open, setOpen] = useState<boolean>(false);
   const handleMenu = () => {
     setOpen((prevState) => !prevState);
   };
+
+  const { mode, handleMode } = useApp();
   const isLoggedIn = useSelector(getIsLoggedIn());
   const menu: MenuProps[] = [
     {
@@ -64,19 +67,23 @@ export const Navigation = () => {
               "navigation__menu" + (open ? " navigation__menu-active" : "")
             }
           >
-            {menu.map((m, i) => (
-              <li key={i} className="navigation__item">
-                <Link
-                  to={m.to}
-                  className={
-                    "navigation__link" +
-                    (m.active ? " navigation__link-active" : "")
-                  }
-                >
-                  {m.name}
-                </Link>
-              </li>
-            ))}
+            {menu.map((m, i) =>
+              m.name === "Sign In" && isLoggedIn ? (
+                ""
+              ) : (
+                <li key={i} className="navigation__item">
+                  <Link
+                    to={m.to}
+                    className={
+                      "navigation__link" +
+                      (m.active ? " navigation__link-active" : "")
+                    }
+                  >
+                    {m.name}
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
         </div>
         <div
@@ -85,6 +92,9 @@ export const Navigation = () => {
           }
         >
           <Search />
+          <button onClick={handleMode} className="navigation__mode">
+            {mode === "dark" ? <BsSun /> : <BsMoon />}
+          </button>
           {isLoggedIn && <NavUser />}
         </div>
       </div>

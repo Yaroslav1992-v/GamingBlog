@@ -6,3 +6,4 @@ export * from "./Fields/CheckBoxField";
 export * from "./Button/Button";
 export * from "./spinner/Spinner";
 export * from "./Avatar/Avatar";
+export * from "./footer/Footer";

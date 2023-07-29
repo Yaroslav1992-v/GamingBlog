@@ -82,3 +82,10 @@
     color: $grey-400;
   }
 }
+.container-dark {
+  .form {
+    &__title {
+      color: $grey-50;
+    }
+  }
+}

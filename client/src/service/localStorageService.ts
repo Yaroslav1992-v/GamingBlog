@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export interface Token {
   refreshToken: string;
   accessToken: string;
@@ -8,6 +10,7 @@ const ACCESS_KEY = "jwt-token";
 const REFRESH_KEY = "jwt-refresh-token";
 const EXPIRES_KEY = "jwt-expires";
 const USERID_KEY = "user-local-id";
+const MODE = "mode";
 export function setTokens({
   accessToken,
   refreshToken,
@@ -19,6 +22,15 @@ export function setTokens({
   localStorage.setItem(USERID_KEY, _id);
   localStorage.setItem(REFRESH_KEY, refreshToken);
   localStorage.setItem(EXPIRES_KEY, expiresDate.toString());
+}
+export function setMode({ mode }: { mode: "light" | "dark" }) {
+  localStorage.setItem(MODE, mode);
+}
+export function getMode(): "dark" | "light" | null {
+  const mode = localStorage.getItem(MODE);
+  if (mode) {
+    return mode as "dark" | "light";
+  } else return null;
 }
 export function getAccessToken() {
   return localStorage.getItem(ACCESS_KEY);
@@ -46,5 +58,7 @@ const localStorageService = {
   getTokenExpiresDate,
   getUserId,
   removeAuthData,
+  setMode,
+  getMode,
 };
 export default localStorageService;

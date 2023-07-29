@@ -24,6 +24,7 @@
   }
   &__menu {
     display: flex;
+    padding: 10px 0 !important;
     transition: all 0.5s ease-in;
     @include media($r-xl) {
       margin-bottom: 10px;
@@ -50,6 +51,24 @@
       display: block;
     }
   }
+
+  &__mode {
+    border-radius: 50%;
+    height: 40px;
+    width: 57px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    justify-content: center;
+    background-color: $grey-100;
+    svg {
+      height: 20px;
+      width: 20px;
+      path {
+        fill: $warning;
+      }
+    }
+  }
   &__btn {
     width: 35px;
     background-color: $grey-900;
@@ -58,7 +77,6 @@
     justify-content: center;
     position: relative;
     height: 4px;
-
     &::before,
     &::after {
       content: "";
@@ -89,6 +107,7 @@
   &__item {
     display: flex;
     align-items: center;
+
     &:not(:last-child) {
       margin-right: 15px;
     }
@@ -121,7 +140,7 @@
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    margin-right: 20px;
+    margin-right: 5px;
     margin-bottom: 5px;
     svg {
       height: 20px;
@@ -135,6 +154,7 @@
   }
   &__right {
     display: flex;
+    align-items: center;
     @include media($r-m) {
       width: 100%;
       justify-content: center;
@@ -163,7 +183,39 @@
   max-width: 50px;
   height: 50px;
   margin-right: 65px;
+  border-radius: 50%;
+  img {
+    border-radius: 50%;
+  }
   @include media($r-m) {
     margin-bottom: 15px;
+  }
+}
+.container-dark {
+  .navigation {
+    &__link {
+      color: $grey-50;
+      &-active {
+        background-color: $grey-700;
+      }
+      &:hover {
+        background-color: $grey-400;
+      }
+    }
+    &__btn {
+      background-color: $grey-50;
+      &-active {
+        background-color: transparent;
+      }
+      &::before,
+      &::after {
+        background-color: $grey-50;
+      }
+    }
+    &__menu {
+      &-active {
+        background-color: $grey-400;
+      }
+    }
   }
 }

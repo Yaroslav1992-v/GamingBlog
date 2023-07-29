@@ -61,3 +61,18 @@
     }
   }
 }
+.container-dark {
+  .auth {
+    &__container {
+      margin-left: -15px;
+    }
+    &__nav {
+      background-color: $grey-700;
+    }
+    &__title,
+    &__question,
+    &__link {
+      color: $grey-50;
+    }
+  }
+}

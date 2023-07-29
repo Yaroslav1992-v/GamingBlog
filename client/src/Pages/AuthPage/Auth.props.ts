@@ -1,5 +1,6 @@
 export interface AuthNavProps {
   authName: "Register" | "Welcome Back";
+  mode: "dark" | "light";
 }
 export interface formProps {}
 
