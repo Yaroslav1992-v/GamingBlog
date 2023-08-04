@@ -11,6 +11,7 @@ import { JwtModule } from './jwt/jwt.module';
 import { FileModule } from './file/file.module';
 import { FileController } from './file/file.controller';
 import { FileService } from './file/file.service';
+import { PostsModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { FileService } from './file/file.service';
     PassportModule,
     JwtModule,
     FileModule,
+    PostsModule,
   ],
 
   controllers: [AppController, FileController],

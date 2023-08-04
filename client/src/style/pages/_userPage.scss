@@ -45,6 +45,9 @@
     color: $grey-400;
     margin-bottom: 15px;
   }
+  &__actions {
+    display: flex;
+  }
 }
 .container-dark {
   .user-page {

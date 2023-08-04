@@ -46,3 +46,14 @@ export const editValidator: ValidationConfig = {
     },
   },
 };
+export const postValidator: ValidationConfig = {
+  mainTitle: {
+    isRequired: { message: "Post Must Have Main Title  " },
+  },
+  mainImage: {
+    isRequired: { message: "Post Must Have Main Image" },
+  },
+  text: {
+    isRequired: { message: "Post Must Have Text Content" },
+  },
+};

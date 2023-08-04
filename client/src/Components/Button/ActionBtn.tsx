@@ -8,18 +8,49 @@ export const ActionBtn = ({
   to = "",
   Icon,
   text,
+  name = "",
+  id = 0,
+  onChange = () => {},
 }: ActionBtnProps) => {
+  const renderButton = () => {
+    switch (type) {
+      case "button":
+        return (
+          <button onClick={onClick} className="action-button-btn">
+            {Icon}
+          </button>
+        );
+      case "link":
+        return (
+          <Link className="action-button-btn" to={to}>
+            {Icon}
+          </Link>
+        );
+      case "fileField":
+        return (
+          <>
+            <label
+              id={name}
+              onClick={onClick}
+              htmlFor={id.toString()}
+              className="action-button-btn"
+            >
+              {Icon}
+            </label>
+            <input
+              name={name}
+              id={id.toString()}
+              onChange={onChange}
+              className="action-button__input"
+              type="file"
+            />
+          </>
+        );
+    }
+  };
   return (
     <div className="action-button">
-      {type === "button" ? (
-        <button onClick={onClick} className="action-button-btn">
-          {Icon}
-        </button>
-      ) : (
-        <Link className="action-button-btn" to={to}>
-          {Icon}
-        </Link>
-      )}
+      {renderButton()}
       <span className="action-button__desc">{text}</span>
     </div>
   );

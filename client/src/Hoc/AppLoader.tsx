@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import { Auth, EditUser, Home, UserPage } from "../Pages";
+import { AddPostPage, Auth, EditUser, Home, UserPage } from "../Pages";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn, loadCurrentUser } from "../store/auth";
 import { useAppDispatch } from "../store/createStore";
 import React from "react";
 import localStorageService from "../service/localStorageService";
+import { PostsProvider } from "./hooks/usePost";
 export interface AppContextValue {
   mode: "dark" | "light";
   handleMode: () => void;
@@ -41,6 +42,7 @@ const AppLoader = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="auth/*" element={<Auth />} />
+        <Route path="addPost" element={<PostsProvider />} />
         <Route path="account/:id" element={<UserPage />} />
         <Route path="account/:id/edit" element={<EditUser />} />
       </Routes>

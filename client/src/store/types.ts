@@ -1,3 +1,5 @@
+import { PostData, formsProps } from "../Hoc/hooks/usePost.types";
+
 export interface RegisterData {
   username: string;
   password: string;
@@ -11,4 +13,9 @@ export interface UserData extends Omit<RegisterData, "password"> {
   info?: string;
   accessToken: string;
   refreshToken: string;
+}
+export interface Post extends PostData {
+  _id?: string;
+  userId: string;
+  content: formsProps[];
 }

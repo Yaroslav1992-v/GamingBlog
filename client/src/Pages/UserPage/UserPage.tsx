@@ -4,6 +4,7 @@ import { ActionBtn, Box } from "../../Components";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/auth";
 import { AiFillEdit } from "react-icons/ai";
+import { FcSettings } from "react-icons/fc";
 export const UserPage = () => {
   const { mode } = useApp();
   const user = useSelector(getCurrentUser());
@@ -19,12 +20,20 @@ export const UserPage = () => {
                 <p>{user?.info}</p>
               </div>
             )}
-            <ActionBtn
-              Icon={<AiFillEdit />}
-              type="link"
-              to={`/account/${user?._id}/edit`}
-              text="Edit User"
-            />
+            <div className="user-page__actions">
+              <ActionBtn
+                Icon={<FcSettings />}
+                type="link"
+                to={`/account/${user?._id}/edit`}
+                text="Edit User"
+              />
+              <ActionBtn
+                Icon={<AiFillEdit />}
+                type="link"
+                to={`/addPost`}
+                text="Write Post"
+              />
+            </div>
           </div>
           <div className="user-page__left">
             <div className="user-page__image">

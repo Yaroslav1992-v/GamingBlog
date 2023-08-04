@@ -6,9 +6,12 @@ export interface buttonProps {
   type?: "submit" | "button";
 }
 export interface ActionBtnProps {
-  type: "link" | "button";
+  type: "link" | "button" | "fileField";
   to?: string;
   Icon: ReactNode;
   text: string;
-  onClick?: () => void;
+  onClick?: ({ ...props }) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: number;
+  name?: string;
 }

@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import configFile from "../config.json";
 
 import httpService from "./httpService";
+import { formsProps } from "../Hoc/hooks/usePost.types";
 
 const file: AxiosInstance = axios.create({
   baseURL: configFile.apiEndPoint,
@@ -34,6 +35,22 @@ const fileService = {
     } catch (error: any) {
       console.log(error);
     }
+  },
+  uploadFiles: async (
+    images: formsProps[]
+  ): Promise<{ url: string; id: string }[]> => {
+    const uploaders = images.map((image) => {
+      const formData = new FormData();
+      formData.append("file", image.value);
+      formData.append("tags", image.id.toString());
+      formData.append("upload_preset", "fsj75ivt");
+
+      return file
+        .post(configFile.cloudinary + "/upload", formData)
+        .then(({ data }) => ({ url: data.url, id: data.tags[0] }))
+        .catch((e) => e);
+    });
+    return axios.all(uploaders);
   },
 };
 export const getPublicIdFromUrl = (imageUrl: string): string | undefined => {
