@@ -15,6 +15,10 @@ export interface PostContextValue {
   handleImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   cancelForm: (value: contentType, id: number) => void;
   handleSumbit: (e: React.FormEvent<HTMLFormElement>) => void;
+
+  setForms: (data: formsProps[]) => void;
+  setPostData: (data: PostData) => void;
+  checkForErrors: () => boolean;
 }
 
 export interface PostErrors {
@@ -26,6 +30,9 @@ export interface formsProps {
   contentName: contentType;
   id: number;
   value: string | File;
+}
+export interface contentData extends Omit<formsProps, "value"> {
+  value: string;
 }
 export interface formsPlusProps {
   postData: PostData;
@@ -47,7 +54,7 @@ export type contentType = "text" | "image" | "quote" | "title" | "mainTitle";
 
 export interface PostData {
   mainTitle: string;
-  mainImage: File | "";
+  mainImage: File | "" | string;
 }
 export interface PostContent {
   name: contentType;

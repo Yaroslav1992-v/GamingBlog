@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { PostTextAreaProps } from "./addPostProps";
 
-export const AddPostTextArea = ({
+export const PostFormTextArea = ({
   onChange,
   id,
   value,
@@ -14,13 +14,14 @@ export const AddPostTextArea = ({
   ) => {
     const height = textRef.current!.scrollHeight;
     textRef.current!.style.height = height + "px";
+    console.log(e);
     onChange(e);
   };
   useEffect(() => {
     textRef.current?.focus();
   }, []);
   return (
-    <div className={"addPost-page__textBox"}>
+    <div className={"post-form__textBox"}>
       <textarea
         ref={textRef}
         name={contentName}
@@ -28,12 +29,12 @@ export const AddPostTextArea = ({
         value={value as string}
         onChange={handleText}
         className={
-          `addPost-page__textArea addPost-page__textArea-${contentName} ` +
-          (error ? "addPost-page__textArea-error" : "")
+          `post-form__textArea post-form__textArea-${contentName} ` +
+          (error ? "post-form__textArea-error" : "")
         }
       />
-      <span className="addPost-page__type">{contentName}</span>
-      {error && <p className="addPost-page__error">{error}</p>}
+      <span className="post-form__type">{contentName}</span>
+      {error && <p className="post-form__error">{error}</p>}
     </div>
   );
 };

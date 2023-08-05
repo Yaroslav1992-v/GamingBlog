@@ -1,7 +1,7 @@
 import React from "react";
 import { AddImageProps } from "./addPostProps";
 
-export const AddImagePost = ({
+export const PostFormImage = ({
   onChange,
   image,
   error = "",
@@ -9,11 +9,11 @@ export const AddImagePost = ({
   return (
     <div
       className={
-        "addPost-page__imageFieldBox " +
-        (error ? "addPost-page__imageFieldBox-error" : "")
+        "post-form__imageFieldBox " +
+        (error ? "post-form__imageFieldBox-error" : "")
       }
     >
-      <label htmlFor="mainImage" className="addPost-page__image-label">
+      <label htmlFor="mainImage" className="post-form__image-label">
         {image && <img src={image} alt="preview" />}
         <span>
           {!image ? "Upload Main Image" : "Chose diffrent main image"}{" "}
@@ -23,10 +23,10 @@ export const AddImagePost = ({
       <input
         id="mainImage"
         onChange={onChange}
-        className="addPost-page__imageField"
+        className="post-form__imageField"
         type="file"
       />
-      {error && <p className="addPost-page__error">{error}</p>}
+      {error && <p className="post-form__error">{error}</p>}
     </div>
   );
 };

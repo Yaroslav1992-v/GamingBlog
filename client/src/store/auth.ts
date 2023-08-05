@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import localStorageService, { Token } from "../service/localStorageService";
-import { LoginData, RegisterData, UserData } from "./types";
+import { LoginData, RegisterData, role, UserData } from "./types";
 import authService from "../service/authService";
 import userService from "../service/userService";
 import { AppDispatch } from "./createStore";
@@ -164,6 +164,10 @@ export const getCurrentUser =
   () =>
   (state: { auth: AuthState }): UserData | null =>
     state.auth.currentUser;
+export const getCurrentUserRole =
+  () =>
+  (state: { auth: AuthState }): role | undefined =>
+    state.auth.currentUser?.role;
 export const getCurrentUserId =
   () =>
   (state: { auth: AuthState }): string | null | undefined =>

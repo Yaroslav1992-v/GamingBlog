@@ -30,7 +30,7 @@ export const UserPage = () => {
               <ActionBtn
                 Icon={<AiFillEdit />}
                 type="link"
-                to={`/addPost`}
+                to={`/post`}
                 text="Write Post"
               />
             </div>

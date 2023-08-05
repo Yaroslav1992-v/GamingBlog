@@ -1,4 +1,4 @@
-import { Controller, Delete, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { FileService } from './file.service';
 @Controller('file')
 export class FileController {
@@ -7,5 +7,9 @@ export class FileController {
   @Delete('deleteByUrl/:url')
   async deleteImage(@Param('url') url: string) {
     return await this.fileServive.deleteImage(url);
+  }
+  @Post('deleteByUrls')
+  async deleteImages(@Body('data') data: string[]) {
+    return await this.fileServive.deleteImages(data);
   }
 }

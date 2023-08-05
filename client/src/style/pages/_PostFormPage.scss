@@ -1,4 +1,5 @@
-.addPost-page {
+.post-form {
+  margin-bottom: 30px;
   &__container {
     padding: 0 10px;
     width: 100%;
@@ -94,9 +95,12 @@
   &__image-label {
     border-radius: 10px;
     background-color: $grey-50;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: $shadow;
     height: 400px;
     width: 100%;
+    @include media($r-m) {
+      height: 300px;
+    }
     img {
       object-fit: contain;
       border-radius: 10px;
@@ -128,6 +132,11 @@
       object-fit: cover;
       border-radius: 10px;
     }
+    .action-button {
+      position: absolute;
+      right: 5px;
+      bottom: 15px;
+    }
   }
   &__cancel {
     position: absolute;
@@ -136,6 +145,19 @@
     svg {
       font-size: 30px;
       fill: $danger;
+    }
+  }
+}
+.container-dark {
+  .addPost-page {
+    &__actions {
+      border-radius: 10px;
+      padding: 5px;
+      background-color: $grey-100;
+    }
+    &__textArea {
+      border-radius: 10px;
+      background-color: $grey-50;
     }
   }
 }

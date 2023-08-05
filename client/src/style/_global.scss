@@ -53,27 +53,32 @@ body {
     height: 40px;
     width: 40px;
   }
+  &-m {
+    height: 60px;
+    width: 60px;
+  }
   img {
     object-fit: cover;
     border-radius: 50%;
   }
 }
 .action-button {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
   background-color: $grey-50;
   position: relative;
   margin-right: 5px;
   display: flex;
   justify-content: center;
   z-index: 3;
+  border-radius: 50%;
   cursor: pointer;
   &-btn {
+    border-radius: 50%;
     display: flex;
     align-items: center;
     cursor: pointer;
     justify-content: center;
+    height: 40px;
+    width: 40px;
   }
   &__input {
     display: none;

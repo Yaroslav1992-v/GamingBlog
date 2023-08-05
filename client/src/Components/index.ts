@@ -11,3 +11,4 @@ export * from "./Button/ActionBtn";
 export * from "./Fields/AvatarField";
 export * from "./Fields/TextArea";
 export * from "./Container/Box";
+export * from "./Posts/PostsMinList";

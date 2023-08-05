@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { AddPostPage } from "../../Pages";
 import {
   ImgError,
   PostContextValue,
@@ -15,8 +14,9 @@ import { Post } from "../../store/types";
 import { useSelector } from "react-redux";
 import { getCurrentUserId } from "../../store/auth";
 import { useAppDispatch } from "../../store/createStore";
-import { createPost } from "../../store/post";
-
+import { createPost, editPost } from "../../store/post";
+import { AddPostPage, EditPostPage } from "../../Pages";
+import _ from "lodash";
 const PostContext = React.createContext<PostContextValue>(
   {} as PostContextValue
 );
@@ -48,6 +48,7 @@ export const PostsProvider: React.FC = () => {
   };
   const handleForms = ({ id, contentName, value }: formsProps) => {
     let len = forms.length;
+    let newForms: formsProps[] = [...forms];
     if (len > 0) {
       if (
         contentName !== "image" &&
@@ -55,15 +56,17 @@ export const PostsProvider: React.FC = () => {
       ) {
         return;
       }
+
       if (!forms[len - 1].value) {
         id--;
-        forms.pop();
+        newForms.pop();
       }
     }
-    const newForms: formsProps[] = [...forms, { contentName, id, value }];
+    newForms = [...newForms, { contentName, id, value }];
     setForms(newForms);
   };
   const activateField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(forms);
     handleForms({
       id: forms.length,
       contentName: "image",
@@ -74,9 +77,12 @@ export const PostsProvider: React.FC = () => {
     { target }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     file?: File
   ) => {
-    const updatedContent = [...forms];
-
-    let { id, value, name } = target;
+    //used spread... before,when adding post spread works fine,
+    // but when im dealing with content that comes
+    //from server it gives me error Cannot assign to read only property 'value' of object '#<Object>'
+    //so after googling i changed it to cloneDeep from lodash
+    const updatedContent = _.cloneDeep(forms);
+    let { id, value } = target;
     updatedContent[Number(id)].value = file ? file : value;
     setForms(updatedContent);
     if (!updatedContent[Number(id)].value && !value && Number(id) > 0) {
@@ -125,8 +131,8 @@ export const PostsProvider: React.FC = () => {
     handleData(e, file);
   };
   const cancelForm = (value: contentType, id: number) => {
-    const filteredForms: formsProps[] = forms.filter(
-      (f) => f.value !== value && f.id !== id
+    const filteredForms: formsProps[] = _.cloneDeep(
+      forms.filter((f) => f.value !== value && f.id !== id)
     );
     if (forms.length - 1 > id) {
       for (let i = id; i < filteredForms.length; i++) {
@@ -135,8 +141,7 @@ export const PostsProvider: React.FC = () => {
     }
     setForms(filteredForms);
   };
-  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const checkForErrors = (): boolean => {
     const text = forms.find((t) => t.contentName === "text" && t.value);
     let errorData: PostErrors = {};
     if (!text) {
@@ -151,18 +156,26 @@ export const PostsProvider: React.FC = () => {
     errorData = validator(errorData as any, postValidator);
     if (Object.keys(errorData).length > 0) {
       setErrors(errorData);
-      return;
+      return true;
     }
-    const post: Post = {
-      ...postData,
-      content: [...forms],
-      userId: userId || "",
-    };
-    const check = await dispatch(createPost(post));
-    if (check) {
-      navigate("/");
-    }
+    return false;
   };
+  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const errorsExist = checkForErrors();
+    if (!errorsExist) {
+      const post: Post = {
+        ...postData,
+        content: [...forms],
+        user: userId || "",
+      };
+      const check = await dispatch(createPost(post));
+      if (check) {
+        navigate("/");
+      }
+    } else return;
+  };
+
   const contextValue: PostContextValue = {
     errors,
     imageError: imageError || "",
@@ -175,12 +188,16 @@ export const PostsProvider: React.FC = () => {
     handleImage,
     cancelForm,
     handleSumbit,
+    setForms,
+    setPostData,
+    checkForErrors,
   };
 
   return (
     <PostContext.Provider value={contextValue}>
       <Routes>
         <Route index element={<AddPostPage />} />
+        <Route path=":postId/edit" element={<EditPostPage />} />
       </Routes>
     </PostContext.Provider>
   );

@@ -11,11 +11,29 @@ export interface UserData extends Omit<RegisterData, "password"> {
   _id: string;
   image?: string;
   info?: string;
+  role: role;
   accessToken: string;
   refreshToken: string;
 }
+export type role = "admin" | "user";
+export interface UserMinData {
+  _id: string;
+  image: string;
+  username: string;
+}
 export interface Post extends PostData {
   _id?: string;
-  userId: string;
+  user: string;
   content: formsProps[];
+}
+export interface PostWithUser extends Omit<Post, "user"> {
+  _id: string;
+  createdAt: Date;
+  user: UserMinData;
+}
+export interface PostMinData extends Omit<PostData, "content"> {
+  _id: string;
+  user: UserMinData;
+  createdAt: Date;
+  mainImage: string;
 }

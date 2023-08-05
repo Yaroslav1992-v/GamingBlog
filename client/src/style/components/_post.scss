@@ -1,0 +1,81 @@
+.posts {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  &__list {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1110px;
+  }
+  &__item {
+    display: flex;
+    flex-basis: 540px;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+}
+.postCard {
+  max-width: 540px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow;
+  flex: 1 1 0;
+  &__link {
+    margin-bottom: auto;
+  }
+  &__image {
+    background-color: $grey-50;
+    height: 295px;
+    max-width: 540px;
+    width: 100%;
+    img {
+      border-radius: 10px 10px 0 0;
+    }
+  }
+
+  &__content {
+    padding: 30px 30px 0 30px;
+    margin-bottom: 15px;
+  }
+  &__date {
+    color: $grey-400;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $grey-900;
+    @include media($r-m) {
+      line-height: 1.1;
+    }
+  }
+  &__user {
+    display: flex;
+    padding: 0 30px 30px 30px;
+    align-items: center;
+    .avatar {
+      margin-right: 10px;
+    }
+  }
+  &__username {
+    font-weight: 600;
+    color: $grey-400;
+  }
+}
+.container-dark {
+  .postCard {
+    &__image {
+      background-color: $grey-900;
+    }
+
+    &__title {
+      color: $grey-400;
+    }
+  }
+}

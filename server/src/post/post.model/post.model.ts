@@ -8,13 +8,11 @@ import { postData } from '../dto/post.dto';
 export interface PostModel extends Base {}
 export class PostModel extends TimeStamps {
   @prop({ required: true, type: Types.ObjectId, ref: UserModel })
-  userId: Types.ObjectId;
+  user: Types.ObjectId;
   @prop({ required: true })
   mainTitle: string;
   @prop({ required: true })
   mainImage: string;
-  @prop()
-  text: string;
   @prop({
     required: true,
     type: () => [Object],
@@ -27,6 +25,4 @@ export class PostModel extends TimeStamps {
       ),
   })
   content: postData[];
-  @prop({ type: () => [String] })
-  comments: string[];
 }

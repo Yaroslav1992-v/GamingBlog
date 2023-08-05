@@ -22,4 +22,20 @@ export class FileService {
       throw new Error(`Failed to delete image with ID ${url}.`);
     }
   }
+  async deleteImages(urls: string[]) {
+    try {
+      const results = await Promise.all(
+        urls.map(async (url) => {
+          await v2.uploader.destroy(url);
+          return `Image with ID ${url} has been deleted from Cloudinary.`;
+        }),
+      );
+      return {
+        message: results.join('\n'),
+      };
+    } catch (err) {
+      console.error(err);
+      throw new Error(`Failed to delete images with IDs ${urls.join(', ')}.`);
+    }
+  }
 }

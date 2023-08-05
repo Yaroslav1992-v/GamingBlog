@@ -13,6 +13,8 @@ export interface formsPlusProps {
   onChange: onChange;
   handleImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   cancelForm: (value: contentType, id: number) => void;
+  submit: (e: React.FormEvent<HTMLFormElement>) => void;
+  formText: "Create Post" | "Edit Post";
 }
 export interface formActions {
   action: ({ contentName, id, value }: formsProps) => void;

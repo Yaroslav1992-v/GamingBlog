@@ -1,0 +1,130 @@
+.post-page {
+  .avatar {
+    margin-right: 10px;
+  }
+  &__container {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+    &-box {
+      display: flex;
+    }
+    &-content,
+    &-link {
+      display: block;
+      font-weight: 600;
+      color: $grey-400;
+      font-size: 18px;
+    }
+    &-link {
+      transition: color ease 0.5s;
+      &:hover {
+        color: $grey-900;
+      }
+    }
+  }
+
+  &__main-image {
+    max-width: 1100px;
+    margin-bottom: 20px;
+    height: 700px;
+    object-fit: cover;
+    @include media($r-lg) {
+      height: 500px;
+    }
+    @include media($r-m) {
+      height: 450px;
+    }
+    @include media($r-sm) {
+      height: 350px;
+    }
+  }
+  &__content-image {
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 20px;
+    height: 500px;
+    @include media($r-lg) {
+      height: 400px;
+    }
+    @include media($r-m) {
+      height: 350px;
+    }
+    @include media($r-sm) {
+      height: 300px;
+    }
+    img {
+      object-fit: cover;
+    }
+  }
+  &__main-title {
+    font-size: 48px;
+    font-weight: 700;
+    @include media($r-lg) {
+      font-size: 40px;
+      line-height: 1.1;
+    }
+  }
+  &__content-title {
+    font-size: 38px;
+    font-weight: 600;
+    font-family: $fontFamily;
+    margin-bottom: 15px;
+    @include media($r-m) {
+      line-height: 1.1;
+      font-size: 34px;
+    }
+  }
+  &__text {
+    font-size: 22px;
+    color: $grey-900;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+  }
+  &__content {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  &__quote {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: $brand-4;
+    blockquote {
+      border-left: 3px solid $primary;
+      padding-left: 20px;
+      font-size: 18px;
+    }
+  }
+}
+.container-dark {
+  .post-page {
+    &__container {
+      background-color: $grey-700;
+    }
+    &__main-title,
+    &__content-title,
+    &__user-link,
+    &__user-content {
+      color: $grey-50;
+    }
+    &__user-link {
+      &:hover {
+        color: $grey-100;
+      }
+    }
+    &__text {
+      color: $grey-100;
+    }
+  }
+}

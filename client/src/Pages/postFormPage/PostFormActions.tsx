@@ -5,14 +5,14 @@ import { formActions } from "./addPostProps";
 import { ActionBtn } from "../../Components";
 import { MdTitle } from "react-icons/md";
 
-export const AddPostActions = ({
+export const PostFormActions = ({
   action,
   num,
   activateFileField,
   handleImage,
 }: formActions) => {
   return (
-    <div className="addPost-page__actions">
+    <div className="post-form__actions">
       <ActionBtn
         onClick={() => action({ id: num, contentName: "quote", value: "" })}
         Icon={<BsChatQuoteFill />}
