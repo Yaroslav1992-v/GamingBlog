@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { AppDispatch } from "./createStore";
 import fileService from "../service/fileService";
-import { Post, PostMinData, PostWithUser } from "./types";
+import { Post, PostMinData, PostWithUser, Tags } from "./types";
 import { formsProps } from "../Hoc/hooks/usePost.types";
 import postService from "../service/postService";
 import { searchForUpdate, updateContent } from "../Utils/searchForUpdate";

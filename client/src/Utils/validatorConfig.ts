@@ -56,4 +56,7 @@ export const postValidator: ValidationConfig = {
   text: {
     isRequired: { message: "Post Must Have Text Content" },
   },
+  tags: {
+    isRequired: { message: "Post Must Have At Least One Tag" },
+  },
 };

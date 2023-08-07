@@ -1,5 +1,5 @@
 import { formsProps } from "../Hoc/hooks/usePost.types";
-import { Post, PostWithUser } from "../store/types";
+import { Post, PostWithUser, Tags } from "../store/types";
 
 export const searchForUpdate = (
   post: Post,
@@ -32,6 +32,52 @@ export const searchForUpdate = (
     }
   }
   return { imagesToDelete, imagesToUpload };
+};
+export const editedTags = (
+  tags: string[],
+  updatedTags: Tags[]
+): {
+  newTags: string[];
+  oldTags: string[];
+  removedTags: string[];
+  existedTags: string[];
+} => {
+  const tagsIds = updatedTags.map((t) => t._id);
+  const newTags: string[] = [];
+  const oldTags: string[] = [];
+  const existedTags: string[] = [];
+
+  const removedTags = tags.filter((t) => !tagsIds.includes(t));
+  updatedTags.forEach((t) => {
+    if (t._id === "") {
+      newTags.push(t.tagName);
+    } else {
+      if (!tags.includes(t._id)) {
+        oldTags.push(t._id);
+      } else {
+        existedTags.push(t._id);
+      }
+    }
+  });
+  return { newTags, oldTags, removedTags, existedTags };
+};
+export const splitTags = (
+  tags: Tags[]
+): {
+  newTags: string[];
+  oldTags: string[];
+} => {
+  const newTags: string[] = [];
+  const oldTags: string[] = [];
+  for (let i = 0; i < tags.length; i++) {
+    if (tags[i]._id !== "") {
+      console.log(tags[i]);
+      oldTags.push(tags[i]._id);
+    } else {
+      newTags.push(tags[i].tagName);
+    }
+  }
+  return { newTags, oldTags };
 };
 export const updateContent = (
   post: Post,

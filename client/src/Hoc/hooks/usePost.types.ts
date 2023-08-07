@@ -1,3 +1,5 @@
+import { Tags } from "../../store/types";
+
 export interface PostContextValue {
   errors: PostErrors | undefined;
   imageError: ImgError;
@@ -14,17 +16,24 @@ export interface PostContextValue {
   ) => void;
   handleImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   cancelForm: (value: contentType, id: number) => void;
-  handleSumbit: (e: React.FormEvent<HTMLFormElement>) => void;
-
   setForms: (data: formsProps[]) => void;
   setPostData: (data: PostData) => void;
   checkForErrors: () => boolean;
+  searchQuery: string;
+  searchQueries: string[];
+  handleSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  filteredTags: Tags[];
+  handleTags: (tag: Tags | string) => void;
+  setTags: (tags: Tags[]) => void;
+  tags: Tags[];
+  removeTag: (tagName: string) => void;
 }
 
 export interface PostErrors {
   mainTitle?: string;
   mainImage?: string;
   text?: string;
+  tags?: string;
 }
 export interface formsProps {
   contentName: contentType;

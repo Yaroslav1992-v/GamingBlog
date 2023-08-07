@@ -10,6 +10,14 @@ import { editPost, getPost, loadPost } from "../../store/post";
 import { useAppDispatch } from "../../store/createStore";
 import { Post } from "../../store/types";
 import { getCurrentUserId } from "../../store/auth";
+import {
+  createTags,
+  decreaseTag,
+  getTags,
+  increaseTag,
+  loadTags,
+} from "../../store/tags";
+import { editedTags } from "../../Utils/searchForUpdate";
 
 export const EditPostPage = () => {
   const { mode } = useApp();
@@ -25,12 +33,15 @@ export const EditPostPage = () => {
     cancelForm,
     setForms,
     setPostData,
+    tags,
+    setTags,
   } = usePosts();
   const { postId } = useParams();
   const userId = useSelector(getCurrentUserId());
   const navigate = useNavigate();
   const post = useSelector(getPost());
   const dispatch = useAppDispatch();
+  const postTags = useSelector(getTags());
   useEffect(() => {
     if (!post && postId) {
       dispatch(loadPost(postId));
@@ -38,19 +49,31 @@ export const EditPostPage = () => {
     if (post) {
       setForms(post.content);
       setPostData({ mainImage: post.mainImage, mainTitle: post.mainTitle });
+      dispatch(loadTags(post.tags));
     }
   }, [post]);
+  useEffect(() => {
+    setTags(postTags);
+  }, [postTags]);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errorsExist = checkForErrors();
     if (!errorsExist && post) {
+      const { newTags, removedTags, oldTags, existedTags } = editedTags(
+        post.tags,
+        tags
+      );
+      dispatch(decreaseTag(removedTags));
+      let createdTags = await dispatch(createTags(newTags));
+      createdTags = createdTags ? createdTags : [];
       const editedPost: Post = {
         _id: post._id,
         ...postData,
         content: [...forms],
         user: userId || "",
+        tags: [...existedTags, ...createdTags, ...oldTags],
       };
-
+      await increaseTag(oldTags);
       const check = await dispatch(editPost(editedPost, post));
       if (check) {
         navigate(`/p/${post._id}`);

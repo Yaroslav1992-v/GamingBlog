@@ -1,0 +1,45 @@
+.tags {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__item {
+    padding: 10px 25px;
+    background-color: $warning;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+    &__tag {
+      font-weight: 600;
+    }
+  }
+  &__tag {
+    font-weight: 600;
+    text-transform: capitalize;
+    color: $grey-700;
+  }
+  &__remove {
+    position: absolute;
+    right: 5px;
+    top: 13px;
+    svg {
+      fill: $danger;
+      font-size: 18px;
+    }
+  }
+}
+.container-dark {
+  .tags {
+    &__item {
+      background-color: $grey-900;
+    }
+    &__tag {
+      color: $grey-100;
+    }
+  }
+}

@@ -35,3 +35,8 @@ export interface AddImageProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }
+export interface tagsInputProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  error?: string;
+}

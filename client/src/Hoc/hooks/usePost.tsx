@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import {
   ImgError,
@@ -10,13 +10,15 @@ import {
 } from "./usePost.types";
 import { validator } from "../../Utils/validator";
 import { postValidator } from "../../Utils/validatorConfig";
-import { Post } from "../../store/types";
+import { Post, Tags } from "../../store/types";
 import { useSelector } from "react-redux";
 import { getCurrentUserId } from "../../store/auth";
 import { useAppDispatch } from "../../store/createStore";
-import { createPost, editPost } from "../../store/post";
+import { createPost } from "../../store/post";
 import { AddPostPage, EditPostPage } from "../../Pages";
 import _ from "lodash";
+import { getSearchedTags, searchTag } from "../../store/tags";
+import { checkString } from "../../Utils/helpers";
 const PostContext = React.createContext<PostContextValue>(
   {} as PostContextValue
 );
@@ -28,6 +30,42 @@ export const usePosts = (): PostContextValue => {
 export const PostsProvider: React.FC = () => {
   const [errors, setErrors] = useState<PostErrors>();
   const userId = useSelector(getCurrentUserId());
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQueries, setSearchQueries] = useState<string[]>([]);
+  const [tags, setTags] = useState<Tags[]>([]);
+  const handleTags = (tag: Tags | string) => {
+    const newTags = [...tags];
+    if (typeof tag === "string") {
+      newTags.push({ tagName: tag, postsNumber: 1, _id: "" });
+    } else {
+      newTags.push(tag);
+    }
+    setTags(newTags);
+    setSearchQuery("");
+  };
+  const searchedTags = useSelector(getSearchedTags());
+  const removeTag = (tagName: string) => {
+    const fTags = tags.filter((t) => t.tagName !== tagName);
+    setTags(fTags);
+  };
+  const checkIfTagsChosen = (tagName: string) => {
+    let check = false;
+    tags.forEach((t) => {
+      if (t.tagName === tagName) {
+        check = true;
+        return;
+      }
+    });
+    return check;
+  };
+  let filteredTags = searchedTags.filter(
+    (t) => checkString(searchQuery, t.tagName) && !checkIfTagsChosen(t.tagName)
+  );
+  const handleSearchQuery = async ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    await setSearchQuery(target.value.trim());
+  };
   const [imageError, setImageError] = useState<ImgError>({
     mainImage: "",
     image: "",
@@ -37,6 +75,12 @@ export const PostsProvider: React.FC = () => {
     mainImage: "",
     mainTitle: "",
   });
+  useEffect(() => {
+    if (searchQuery && !searchQueries.includes(searchQuery)) {
+      setSearchQueries((prevState) => [...prevState, searchQuery]);
+      dispatch(searchTag(searchQuery));
+    }
+  }, [searchQuery]);
   const [forms, setForms] = useState<formsProps[]>([
     { contentName: "text", value: "", id: 0 },
   ]);
@@ -66,7 +110,6 @@ export const PostsProvider: React.FC = () => {
     setForms(newForms);
   };
   const activateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(forms);
     handleForms({
       id: forms.length,
       contentName: "image",
@@ -149,9 +192,14 @@ export const PostsProvider: React.FC = () => {
         ...postData,
         text: "",
         mainImage: postData.mainImage ? "ok" : "",
+        tags: tags.length > 0 ? "ok" : "",
       };
     } else {
-      errorData = { ...postData, mainImage: postData.mainImage ? "ok" : "" };
+      errorData = {
+        ...postData,
+        mainImage: postData.mainImage ? "ok" : "",
+        tags: tags.length > 0 ? "ok" : "",
+      };
     }
     errorData = validator(errorData as any, postValidator);
     if (Object.keys(errorData).length > 0) {
@@ -159,21 +207,6 @@ export const PostsProvider: React.FC = () => {
       return true;
     }
     return false;
-  };
-  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const errorsExist = checkForErrors();
-    if (!errorsExist) {
-      const post: Post = {
-        ...postData,
-        content: [...forms],
-        user: userId || "",
-      };
-      const check = await dispatch(createPost(post));
-      if (check) {
-        navigate("/");
-      }
-    } else return;
   };
 
   const contextValue: PostContextValue = {
@@ -187,10 +220,17 @@ export const PostsProvider: React.FC = () => {
     handleData,
     handleImage,
     cancelForm,
-    handleSumbit,
     setForms,
     setPostData,
     checkForErrors,
+    searchQueries,
+    searchQuery,
+    handleSearchQuery,
+    handleTags,
+    filteredTags,
+    removeTag,
+    tags,
+    setTags,
   };
 
   return (

@@ -12,6 +12,7 @@ import { FileModule } from './file/file.module';
 import { FileController } from './file/file.controller';
 import { FileService } from './file/file.service';
 import { PostsModule } from './post/post.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { PostsModule } from './post/post.module';
     JwtModule,
     FileModule,
     PostsModule,
+    TagsModule,
   ],
 
   controllers: [AppController, FileController],

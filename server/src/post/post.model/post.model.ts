@@ -1,8 +1,9 @@
-import { prop } from '@typegoose/typegoose';
+import { Ref, prop } from '@typegoose/typegoose';
 import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
 import { Types } from 'mongoose';
 import { UserModel } from '../../user/user.model/user.model';
 import { postData } from '../dto/post.dto';
+import { TagModel } from 'src/tags/tag.dto/tag.model';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PostModel extends Base {}
@@ -25,4 +26,6 @@ export class PostModel extends TimeStamps {
       ),
   })
   content: postData[];
+  @prop({ type: () => [Types.ObjectId], ref: TagModel })
+  tags: Types.ObjectId[];
 }

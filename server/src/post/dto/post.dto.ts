@@ -10,6 +10,8 @@ export class PostDto {
   mainImage: string;
   @IsArray()
   content: postData[];
+  @IsArray()
+  tags: string[];
 }
 export interface postData {
   contentName: 'image' | 'title' | 'text' | 'quote';

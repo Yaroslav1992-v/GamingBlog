@@ -25,6 +25,12 @@ export interface Post extends PostData {
   _id?: string;
   user: string;
   content: formsProps[];
+  tags: string[];
+}
+export interface Tags {
+  _id: string;
+  tagName: string;
+  postsNumber: number;
 }
 export interface PostWithUser extends Omit<Post, "user"> {
   _id: string;
