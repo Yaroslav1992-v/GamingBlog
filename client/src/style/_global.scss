@@ -25,9 +25,17 @@ body {
     color: #ffff;
     font-weight: 700;
     font-family: $fontFamily;
-    transition: background-color 0.5s ease;
+    transition: all 0.5s ease;
+
     &:hover {
       background-color: $grey-700;
+    }
+    &:disabled {
+      cursor: auto;
+      opacity: 0.4;
+      &:hover {
+        background-color: $grey-900;
+      }
     }
   }
   &-l {
@@ -56,6 +64,10 @@ body {
   &-m {
     height: 60px;
     width: 60px;
+  }
+  &-l {
+    height: 72px;
+    width: 72px;
   }
   img {
     object-fit: cover;

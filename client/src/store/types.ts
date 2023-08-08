@@ -43,3 +43,26 @@ export interface PostMinData extends Omit<PostData, "content"> {
   createdAt: Date;
   mainImage: string;
 }
+export interface createCommentData {
+  user: string;
+  postId: string;
+  content: string;
+  reply?: Reply;
+}
+export interface Reply {
+  to?: string;
+  parentId?: string;
+  name?: string;
+}
+export interface CommentData {
+  _id: string;
+  content: string;
+  createdAt: Date;
+  user: { _id: string; image?: string; username: string };
+  reply?: Reply;
+}
+export interface User {
+  _id: string;
+  username: string;
+  image: string;
+}

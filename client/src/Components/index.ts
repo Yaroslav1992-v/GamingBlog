@@ -11,5 +11,6 @@ export * from "./Button/ActionBtn";
 export * from "./Fields/AvatarField";
 export * from "./Fields/TextArea";
 export * from "./Container/Box";
+export * from "./Comments/Comments";
 export * from "./Posts/PostsMinList";
 export * from "./TagsList/TagsList";

@@ -13,6 +13,7 @@ import { FileController } from './file/file.controller';
 import { FileService } from './file/file.service';
 import { PostsModule } from './post/post.module';
 import { TagsModule } from './tags/tags.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TagsModule } from './tags/tags.module';
     FileModule,
     PostsModule,
     TagsModule,
+    CommentsModule,
   ],
 
   controllers: [AppController, FileController],

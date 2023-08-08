@@ -3,11 +3,13 @@ import { useDispatch } from "react-redux";
 import authReducer from "./auth";
 import postReducer from "./post";
 import tagsReducer from "./tags";
+import commentsReducer from "./comments";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   post: postReducer,
   tags: tagsReducer,
+  comment: commentsReducer,
 });
 function createStore() {
   return configureStore({
