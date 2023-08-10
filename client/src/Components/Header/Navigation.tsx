@@ -8,14 +8,20 @@ import { getCurrentUser, getIsLoggedIn } from "../../store/auth";
 import { NavUser } from "./NavUser";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useApp } from "../../Hoc/AppLoader";
+
 export const Navigation = () => {
   const [open, setOpen] = useState<boolean>(false);
   const handleMenu = () => {
     setOpen((prevState) => !prevState);
   };
+
   const user = useSelector(getCurrentUser());
   const { mode, handleMode } = useApp();
   const isLoggedIn = useSelector(getIsLoggedIn());
+  const [openNots, setOpenNots] = useState<boolean>(false);
+  const handleOpenNots = () => {
+    setOpenNots((prevState) => !prevState);
+  };
   const menu: MenuProps[] = [
     {
       name: "Home",

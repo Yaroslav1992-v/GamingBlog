@@ -3,12 +3,13 @@ import { CommentsField } from "./CommentsField";
 import { Button } from "../Button/Button";
 import { useSelector } from "react-redux";
 import { getCurrentUserId } from "../../store/auth";
-import { createCommentData } from "../../store/types";
+import { createCommentData, createNotificationData } from "../../store/types";
 import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../../store/createStore";
 import { createComment, getCommentsIsLoading } from "../../store/comments";
 import { ReplyComment } from "./comments.props";
 import { Spinner } from "../spinner/Spinner";
+import { createNotification } from "../../store/notification";
 
 export const CommentForm = ({ reply }: { reply?: ReplyComment }) => {
   const userId = useSelector(getCurrentUserId());
@@ -28,7 +29,7 @@ export const CommentForm = ({ reply }: { reply?: ReplyComment }) => {
   }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setComment(target.value);
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment.length > 3 && userId && postId) {
       if (reply) {
@@ -42,7 +43,17 @@ export const CommentForm = ({ reply }: { reply?: ReplyComment }) => {
             to: reply.userId,
           },
         };
-        dispatch(createComment(newComment));
+        const commentId = await dispatch(createComment(newComment));
+        if (userId !== reply.userId && commentId) {
+          const notification: createNotificationData = {
+            postId,
+            author: userId,
+            reciever: reply.userId,
+            content: comment.replace(reply.name, ""),
+            commentId,
+          };
+          dispatch(createNotification(notification));
+        }
       } else {
         const newComment: createCommentData = {
           user: userId,

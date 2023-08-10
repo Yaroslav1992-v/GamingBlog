@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CommentForm } from "./CommentForm";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../store/createStore";
 import { getComments, loadComments } from "../../store/comments";
 import { useSelector } from "react-redux";
@@ -15,6 +15,8 @@ export const Comments = () => {
       dispatch(loadComments(postId));
     }
   }, []);
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
     <div className="comments">
       <h4 className="comments__title">Leave a comment</h4>

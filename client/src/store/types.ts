@@ -49,6 +49,24 @@ export interface createCommentData {
   content: string;
   reply?: Reply;
 }
+export interface createNotificationData {
+  author: string;
+  reciever: string;
+  postId: string;
+  commentId: string;
+  content: string;
+  isRead?: boolean;
+}
+export interface Notification {
+  _id: string;
+  author: UserMinData;
+  reciever: UserMinData;
+  postId: { _id: string; mainTitle: string };
+  commentId: string;
+  content: string;
+  isRead: boolean;
+  createdAt: Date;
+}
 export interface Reply {
   to?: string;
   parentId?: string;

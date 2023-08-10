@@ -79,7 +79,7 @@ export const createComment =
       dispatch(commentsCreateRequested());
       const newComment = await commentsService.createComments(comment);
       dispatch(commentsCreateSucceded(newComment));
-      return newComment;
+      return newComment._id;
     } catch (error: any) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(commentsCreateFailed(message));
@@ -119,7 +119,6 @@ export const loadComments = (postId: string) => async (dispatch: Dispatch) => {
 export const getComments =
   () =>
   (state: { comment: CommentsState }): CommentData[] => {
-    console.log(state);
     return state.comment.comments;
   };
 

@@ -1,0 +1,81 @@
+.notifications {
+  position: absolute;
+  width: 400px;
+  right: 15px;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  padding-top: 15px;
+  top: 50px;
+  z-index: 99999;
+  background-color: #fff;
+  @include media($r-m) {
+    right: unset;
+    left: 0;
+    top: unset;
+  }
+  @include media($r-sm) {
+    width: 100%;
+  }
+
+  &__inner {
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  &__actions {
+    display: flex;
+  }
+  &__item {
+    padding: 15px 10px;
+    &-unread {
+      background-color: $grey-50;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid $grey-700;
+    }
+  }
+  &__content {
+    font-size: 18px;
+    color: $grey-900;
+  }
+  &__head {
+    color: $grey-900;
+  }
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  &__date {
+    color: $grey-700;
+  }
+  &__notification {
+    display: flex;
+    .avatar {
+      margin-right: 10px;
+    }
+  }
+  &__info {
+    color: $grey-900;
+    font-weight: 600;
+  }
+}
+.container-dark {
+  .notifications {
+    background-color: $grey-100;
+    &__title {
+      color: $grey-50;
+    }
+    &__item {
+      &-unread {
+        background-color: $grey-900;
+        .notifications__info,
+        .notifications__head,
+        .notifications__content,
+        .notifications__date {
+          color: $grey-100;
+        }
+      }
+    }
+  }
+}

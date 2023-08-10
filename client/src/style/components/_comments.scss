@@ -31,6 +31,9 @@
     box-shadow: $shadow;
     padding: 25px 15px;
     border-radius: 5px;
+    &-reply {
+      border: 2px solid $primary;
+    }
     .comments {
       &__fieldBox {
         margin-top: 30px;

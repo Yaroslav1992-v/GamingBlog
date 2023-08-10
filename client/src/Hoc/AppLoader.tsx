@@ -2,12 +2,17 @@ import { Route, Routes } from "react-router-dom";
 import { Auth, EditUser, Home, PostPage, UserPage } from "../Pages";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn, loadCurrentUser } from "../store/auth";
+import {
+  getCurrentUserId,
+  getIsLoggedIn,
+  loadCurrentUser,
+} from "../store/auth";
 import { useAppDispatch } from "../store/createStore";
 import React from "react";
 import localStorageService from "../service/localStorageService";
 import { PostsProvider } from "./hooks/usePost";
 import { getPosts } from "../store/post";
+import { loadNotifications } from "../store/notification";
 
 export interface AppContextValue {
   mode: "dark" | "light";
@@ -25,6 +30,7 @@ const AppLoader = () => {
   const [mode, setMode] = useState<"dark" | "light">(
     localStorageService.getMode() || "light"
   );
+  const userId = useSelector(getCurrentUserId());
   const handleMode = () => {
     localStorageService.setMode({ mode: mode === "dark" ? "light" : "dark" });
     setMode((prevState) => (prevState === "dark" ? "light" : "dark"));
@@ -34,6 +40,9 @@ const AppLoader = () => {
     if (isLoggedIn) {
       dispatch(loadCurrentUser());
       dispatch(getPosts());
+      if (userId) {
+        dispatch(loadNotifications(userId));
+      }
     }
   }, [isLoggedIn]);
   const contextValue: AppContextValue = {
@@ -48,6 +57,7 @@ const AppLoader = () => {
         <Route path="post/*" element={<PostsProvider />} />
         <Route path="account/:id" element={<UserPage />} />
         <Route path="p/:postId" element={<PostPage />} />
+        <Route path="p/:postId/:commentId" element={<PostPage />} />
         <Route path="account/:id/edit" element={<EditUser />} />
       </Routes>
     </AppContext.Provider>

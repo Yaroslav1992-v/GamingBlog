@@ -104,6 +104,12 @@
       margin-right: 15px;
     }
   }
+  &__nots {
+    position: relative;
+    @include media($r-m) {
+      position: static;
+    }
+  }
   &__link {
     padding: 15px;
     border-radius: 10px;
@@ -169,6 +175,21 @@
     @include media($r-sm) {
       margin-right: 5px;
     }
+  }
+  &__count {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    right: 10px;
+    top: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: $grey-50;
+    background-color: $info;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
   }
 }
 .logo {

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CommentData } from "../../store/types";
 import { Avatar } from "../Avatar/Avatar";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../Utils/date";
 import { CommentForm } from "./CommentForm";
 import { ReplyComment } from "./comments.props";
@@ -28,10 +28,12 @@ export const Comment = ({
   const { _id: userId, image, username } = user;
   const [reply, setReply] = useState<boolean>(false);
   const [response, setResponse] = useState<ReplyComment | undefined>();
+
   const [edit, setEdit] = useState<boolean>(false);
   const handleEdit = () => {
     setEdit((prevState) => !prevState);
   };
+  const { commentId: cId } = useParams();
   const isLoggedIn = useSelector(getIsLoggedIn());
   const role = useSelector(getCurrentUserRole());
   const dispatch = useAppDispatch();
@@ -43,6 +45,14 @@ export const Comment = ({
       findParent(parent.reply.parentId);
     }
   };
+  const commentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (_id === cId) {
+      commentRef.current!.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [cId]);
   const handleReply = () => {
     findParent(_id);
     setReply((prevState) => !prevState);
@@ -55,8 +65,14 @@ export const Comment = ({
   const handleRemove = () => {
     dispatch(removeComment(_id));
   };
+
   return (
-    <div className="comments__comment">
+    <div
+      ref={commentRef}
+      className={
+        "comments__comment" + (cId === _id ? " comments__comment-reply" : "")
+      }
+    >
       <div className="comments__data">
         <div className="comments__avatar">
           <Avatar size="l" image={image} to={userId} />
