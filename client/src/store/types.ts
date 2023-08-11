@@ -44,6 +44,14 @@ export interface PostMinData extends Omit<PostData, "content"> {
   mainImage: string;
   tags: Tags[];
 }
+export interface PostBlogData {
+  _id: string;
+  user: UserMinData;
+  createdAt: Date;
+  mainImage: string;
+  mainTitle: string;
+  content: { value: string }[];
+}
 export interface createCommentData {
   user: string;
   postId: string;

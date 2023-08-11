@@ -35,6 +35,17 @@ export class PostsController {
       throw error;
     }
   }
+  @Get('loadAllPosts')
+  async loadAllPosts() {
+    try {
+      return this.postsService.loadAllPosts();
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
   @Patch('edit')
   @UseGuards(AuthGuard)
   async editPost(@Body() data: postEditDto, @Req() req: AuthUser) {

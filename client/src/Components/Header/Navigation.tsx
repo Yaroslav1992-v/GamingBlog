@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ActionBtn, Logo } from "..";
 import { MenuProps } from "./header.props";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Search } from "./Search";
 import { useSelector } from "react-redux";
 import { getCurrentUser, getIsLoggedIn } from "../../store/auth";
@@ -18,40 +18,38 @@ export const Navigation = () => {
   const user = useSelector(getCurrentUser());
   const { mode, handleMode } = useApp();
   const isLoggedIn = useSelector(getIsLoggedIn());
-  const [openNots, setOpenNots] = useState<boolean>(false);
-  const handleOpenNots = () => {
-    setOpenNots((prevState) => !prevState);
-  };
+  const { pathname } = useLocation();
+  console.log(pathname);
   const menu: MenuProps[] = [
     {
       name: "Home",
       to: "/",
-      active: true,
+      active: pathname === "/",
     },
     {
       name: "about",
       to: "about",
-      active: false,
+      active: pathname.includes("about"),
     },
     {
       name: "blog",
-      to: "blog",
-      active: false,
+      to: "/blog",
+      active: pathname.includes("blog"),
     },
     {
       name: "shop",
       to: "shop",
-      active: false,
+      active: pathname.includes("shop"),
     },
     {
       name: "contact",
       to: "contact",
-      active: false,
+      active: pathname.includes("contact"),
     },
     {
       name: "Sign In",
       to: "auth/login",
-      active: false,
+      active: pathname.includes("auth/login"),
     },
   ];
   return (

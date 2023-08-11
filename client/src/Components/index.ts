@@ -15,3 +15,4 @@ export * from "./Comments/Comments";
 export * from "./Posts/PostsMinList";
 export * from "./TagsList/TagsList";
 export * from "./Notifications/Notifications";
+export * from "./Pagination/Pagination";

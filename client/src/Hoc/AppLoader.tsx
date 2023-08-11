@@ -1,5 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import { Auth, EditUser, Home, PostPage, SearchPage, UserPage } from "../Pages";
+import {
+  Auth,
+  Blog,
+  EditUser,
+  Home,
+  PostPage,
+  SearchPage,
+  UserPage,
+} from "../Pages";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -62,6 +70,7 @@ const AppLoader = () => {
         <Route path="account/:id/edit" element={<EditUser />} />
         <Route path="tags/:tagName/:tagId" element={<SearchPage />} />
         <Route path="search/:value" element={<SearchPage />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
     </AppContext.Provider>
   );

@@ -28,6 +28,32 @@ export class PostsService {
     }
     return posts;
   }
+  async loadAllPosts(): Promise<PostModel[]> {
+    const posts = await this.postModel
+      .find()
+      .select('-__v -tags')
+      .populate('user', 'username image')
+      .populate({ path: 'tags', select: 'tagName', options: { limit: 3 } })
+      .sort({ createdAt: 'desc' })
+      .exec();
+    if (!posts) {
+      throw new NotFoundException(`Post not found`);
+    }
+
+    const postsWithTextContent = posts.map((post) => {
+      const textContent = post.content.find(
+        (item) => item.contentName === 'text',
+      );
+      if (textContent) {
+        return {
+          ...post.toObject(),
+          content: [textContent],
+        };
+      }
+      return post.toObject();
+    });
+    return postsWithTextContent;
+  }
   async findPostByPostId(postId: string): Promise<PostModel> {
     const post = await this.postModel
       .findById(postId)

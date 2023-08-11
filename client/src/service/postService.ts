@@ -1,5 +1,5 @@
 import { PostData } from "../Hoc/hooks/usePost.types";
-import { Post, PostMinData, PostWithUser } from "../store/types";
+import { Post, PostBlogData, PostMinData, PostWithUser } from "../store/types";
 import httpService from "./httpService";
 
 const apiEndPoint = "/posts/";
@@ -16,6 +16,10 @@ const postService = {
   },
   loadPosts: async (): Promise<PostMinData[]> => {
     const { data } = await httpService.get(apiEndPoint + "loadPosts");
+    return data;
+  },
+  loadAllPosts: async (): Promise<PostBlogData[]> => {
+    const { data } = await httpService.get(apiEndPoint + "loadAllPosts");
     return data;
   },
   loadPostsByTag: async (tag: string): Promise<PostMinData[]> => {

@@ -3,13 +3,9 @@ import { Avatar } from "../Avatar/Avatar";
 import { Notification } from "../../store/types";
 import { formatDate } from "../../Utils/date";
 import { Link } from "react-router-dom";
+import { cutString } from "../../Utils/helpers";
 
 export const Notif = ({ not }: { not: Notification }) => {
-  function cutString(text: string, num: number): string {
-    if (text.length > num) return text.slice(0, num) + "...";
-    else return text;
-  }
-
   return (
     <Link
       to={`/p/${not.postId._id}/${not.commentId}`}

@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { AppDispatch } from "./createStore";
 import fileService from "../service/fileService";
-import { Post, PostMinData, PostWithUser, Tags } from "./types";
+import { Post, PostBlogData, PostMinData, PostWithUser } from "./types";
 import { formsProps } from "../Hoc/hooks/usePost.types";
 import postService from "../service/postService";
 import { searchForUpdate, updateContent } from "../Utils/searchForUpdate";
@@ -15,6 +15,7 @@ interface PostState {
   isLoading: boolean;
   error: string | null;
   posts: PostMinData[];
+  postsBlog: PostBlogData[] | null;
   post: PostWithUser | null;
   searchedPosts: PostMinData[] | null;
 }
@@ -24,6 +25,7 @@ const initialState: PostState = {
   error: null,
   posts: [],
   post: null,
+  postsBlog: null,
   searchedPosts: null,
 };
 
@@ -38,6 +40,10 @@ export const postSlice = createSlice({
       state.post = null;
       state.isLoading = true;
     },
+    postBlogRequested: (state: PostState) => {
+      state.postsBlog = null;
+      state.isLoading = true;
+    },
     postCreateRequested: (state: PostState) => {
       state.isLoading = true;
     },
@@ -47,6 +53,13 @@ export const postSlice = createSlice({
     },
     postsReceived: (state: PostState, action: PayloadAction<PostMinData[]>) => {
       state.posts = action.payload;
+      state.isLoading = false;
+    },
+    postsBlogReceived: (
+      state: PostState,
+      action: PayloadAction<PostBlogData[]>
+    ) => {
+      state.postsBlog = action.payload;
       state.isLoading = false;
     },
     searchedPostsRequested: (state: PostState) => {
@@ -142,6 +155,16 @@ export const getPosts = () => async (dispatch: Dispatch) => {
     dispatch(postsRequestFailed(message));
   }
 };
+export const loadAllPosts = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(postBlogRequested());
+    const posts = await postService.loadAllPosts();
+    dispatch(postsBlogReceived(posts));
+  } catch (error: any) {
+    const message = error.response?.data?.message || "Something went wrong";
+    dispatch(postsRequestFailed(message));
+  }
+};
 export const getPostsByTag = (tagId: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(searchedPostsRequested());
@@ -187,6 +210,9 @@ export const getMinPost = () => (state: { post: PostState }) => {
 export const getSearchedPosts = () => (state: { post: PostState }) => {
   return state.post.searchedPosts;
 };
+export const getAllPosts = () => (state: { post: PostState }) => {
+  return state.post.postsBlog;
+};
 const { reducer: postReducer, actions } = postSlice;
 const {
   postsRequested,
@@ -198,6 +224,8 @@ const {
   postEditRequested,
   postEdited,
   searchedPostsRequested,
+  postsBlogReceived,
+  postBlogRequested,
   searchedPostsReceived,
   postCreated,
 } = actions;
