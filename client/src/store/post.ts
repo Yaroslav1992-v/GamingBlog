@@ -16,6 +16,7 @@ interface PostState {
   error: string | null;
   posts: PostMinData[];
   post: PostWithUser | null;
+  searchedPosts: PostMinData[] | null;
 }
 
 const initialState: PostState = {
@@ -23,6 +24,7 @@ const initialState: PostState = {
   error: null,
   posts: [],
   post: null,
+  searchedPosts: null,
 };
 
 export const postSlice = createSlice({
@@ -45,6 +47,17 @@ export const postSlice = createSlice({
     },
     postsReceived: (state: PostState, action: PayloadAction<PostMinData[]>) => {
       state.posts = action.payload;
+      state.isLoading = false;
+    },
+    searchedPostsRequested: (state: PostState) => {
+      state.searchedPosts = null;
+      state.isLoading = true;
+    },
+    searchedPostsReceived: (
+      state: PostState,
+      action: PayloadAction<PostMinData[]>
+    ) => {
+      state.searchedPosts = action.payload;
       state.isLoading = false;
     },
     postReceived: (state: PostState, action: PayloadAction<PostWithUser>) => {
@@ -129,6 +142,26 @@ export const getPosts = () => async (dispatch: Dispatch) => {
     dispatch(postsRequestFailed(message));
   }
 };
+export const getPostsByTag = (tagId: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(searchedPostsRequested());
+    const posts = await postService.loadPostsByTag(tagId);
+    dispatch(searchedPostsReceived(posts));
+  } catch (error: any) {
+    const message = error.response?.data?.message || "Something went wrong";
+    dispatch(postsRequestFailed(message));
+  }
+};
+export const findPostByWord = (word: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(searchedPostsRequested());
+    const posts = await postService.loadPostsByWord(word);
+    dispatch(searchedPostsReceived(posts));
+  } catch (error: any) {
+    const message = error.response?.data?.message || "Something went wrong";
+    dispatch(postsRequestFailed(message));
+  }
+};
 
 export const loadPost = (id: string) => async (dispatch: AppDispatch) => {
   try {
@@ -151,6 +184,9 @@ export const getPost =
 export const getMinPost = () => (state: { post: PostState }) => {
   return state.post.posts;
 };
+export const getSearchedPosts = () => (state: { post: PostState }) => {
+  return state.post.searchedPosts;
+};
 const { reducer: postReducer, actions } = postSlice;
 const {
   postsRequested,
@@ -161,6 +197,8 @@ const {
   postCreateRequested,
   postEditRequested,
   postEdited,
+  searchedPostsRequested,
+  searchedPostsReceived,
   postCreated,
 } = actions;
 

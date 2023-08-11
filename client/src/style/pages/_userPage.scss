@@ -32,7 +32,9 @@
     border-radius: 10%;
     background-color: $primary;
     img {
-      object-fit: contain;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 10%;
     }
     @include media($r-sm) {
       width: 280px;
@@ -43,6 +45,7 @@
     max-width: 440px;
     font-size: 18px;
     color: $grey-400;
+    margin-right: 10px;
     margin-bottom: 15px;
   }
   &__actions {

@@ -1,0 +1,21 @@
+.search-page {
+  &__container {
+    padding: 15px;
+  }
+  &__inner {
+    margin-bottom: 30px;
+  }
+  &__message {
+    font-size: 28px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+  }
+}
+.container-dark {
+  .search-page {
+    &__message {
+      color: $grey-100;
+    }
+  }
+}

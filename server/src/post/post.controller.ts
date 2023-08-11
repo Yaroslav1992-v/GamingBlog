@@ -61,4 +61,26 @@ export class PostsController {
       throw error;
     }
   }
+  @Get('loadPostsByTag/:tag')
+  async findPostByTag(@Param('tag') tag: string) {
+    try {
+      return await this.postsService.findPostsByTag(tag);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
+  @Get('loadPostsByWord/:word')
+  async findPostByWord(@Param('word') word: string) {
+    try {
+      return await this.postsService.findPostsByWord(word);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
 }

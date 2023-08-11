@@ -42,6 +42,7 @@ export interface PostMinData extends Omit<PostData, "content"> {
   user: UserMinData;
   createdAt: Date;
   mainImage: string;
+  tags: Tags[];
 }
 export interface createCommentData {
   user: string;

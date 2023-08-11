@@ -18,6 +18,18 @@ const postService = {
     const { data } = await httpService.get(apiEndPoint + "loadPosts");
     return data;
   },
+  loadPostsByTag: async (tag: string): Promise<PostMinData[]> => {
+    const { data } = await httpService.get(
+      apiEndPoint + `loadPostsByTag/${tag}`
+    );
+    return data;
+  },
+  loadPostsByWord: async (word: string): Promise<PostMinData[]> => {
+    const { data } = await httpService.get(
+      apiEndPoint + `loadPostsByWord/${word}`
+    );
+    return data;
+  },
   loadPost: async (id: string): Promise<PostWithUser> => {
     const { data } = await httpService.get(apiEndPoint + id);
     return data;

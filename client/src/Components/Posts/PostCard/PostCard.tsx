@@ -2,13 +2,13 @@ import React from "react";
 import { PostMinData } from "../../../store/types";
 import { formatDate } from "../../../Utils/date";
 import { Link } from "react-router-dom";
-import { Avatar } from "../..";
+import { Avatar, TagsList } from "../..";
 
 export const PostCard = ({ post }: { post: PostMinData }) => {
   const { mainImage, mainTitle, user, createdAt, _id } = post;
   return (
     <article className="postCard">
-      <Link className="postCard__link" to={`p/${_id}`}>
+      <Link className="postCard__link" to={`/p/${_id}`}>
         <div className="postCard__image">
           <img src={mainImage} alt="post main" />
         </div>
@@ -23,6 +23,9 @@ export const PostCard = ({ post }: { post: PostMinData }) => {
         <Link className="postCard__username" to={`/account/${user._id}`}>
           {user.username}
         </Link>
+      </div>
+      <div className="postCard__tags">
+        <TagsList tags={post.tags} removable={false} />
       </div>
     </article>
   );

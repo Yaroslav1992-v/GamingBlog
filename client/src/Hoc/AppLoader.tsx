@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Auth, EditUser, Home, PostPage, UserPage } from "../Pages";
+import { Auth, EditUser, Home, PostPage, SearchPage, UserPage } from "../Pages";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -39,11 +39,12 @@ const AppLoader = () => {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(loadCurrentUser());
-      dispatch(getPosts());
+
       if (userId) {
         dispatch(loadNotifications(userId));
       }
     }
+    dispatch(getPosts());
   }, [isLoggedIn]);
   const contextValue: AppContextValue = {
     mode,
@@ -59,6 +60,8 @@ const AppLoader = () => {
         <Route path="p/:postId" element={<PostPage />} />
         <Route path="p/:postId/:commentId" element={<PostPage />} />
         <Route path="account/:id/edit" element={<EditUser />} />
+        <Route path="tags/:tagName/:tagId" element={<SearchPage />} />
+        <Route path="search/:value" element={<SearchPage />} />
       </Routes>
     </AppContext.Provider>
   );

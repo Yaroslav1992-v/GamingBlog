@@ -63,6 +63,14 @@
       margin-right: 10px;
     }
   }
+  &__tags {
+    padding: 0 15px;
+    .tags {
+      &__item {
+        padding: 10px;
+      }
+    }
+  }
   &__username {
     font-weight: 600;
     color: $grey-400;

@@ -19,7 +19,9 @@ export class PostsService {
       .find()
       .select('-__v -content')
       .populate('user', 'username image')
+      .populate({ path: 'tags', select: 'tagName', options: { limit: 3 } })
       .sort({ createdAt: 'desc' })
+      .limit(6)
       .exec();
     if (!posts) {
       throw new NotFoundException(`Post not found`);
@@ -35,6 +37,31 @@ export class PostsService {
       throw new NotFoundException(`Post with ID ${{ postId }} not found`);
     }
     return post;
+  }
+  async findPostsByTag(tagId: string): Promise<PostModel[]> {
+    const posts = await this.postModel
+      .find({ tags: { $in: [tagId] } })
+      .populate('user', 'image username')
+      .populate({ path: 'tags', select: 'tagName', options: { limit: 3 } })
+      .exec();
+    if (!posts || posts.length === 0) {
+      throw new NotFoundException(`No posts found with tag ID ${tagId}`);
+    }
+
+    return posts;
+  }
+  async findPostsByWord(name: string): Promise<PostModel[]> {
+    const regexString = name.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // Ensure name is properly escaped
+    const regex = new RegExp(regexString, 'i');
+    const users: PostModel[] = await this.postModel
+      .find({ mainTitle: regex })
+      .populate('user', 'image username')
+      .populate({ path: 'tags', select: 'tagName', options: { limit: 3 } })
+      .exec();
+    if (!users) {
+      throw new NotFoundException(`Users with name  ${name} are not founds`);
+    }
+    return users;
   }
   async editPost(post: postEditDto): Promise<PostModel> {
     const editedPost = await this.postModel.findOneAndUpdate(

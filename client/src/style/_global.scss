@@ -55,7 +55,7 @@ body {
 }
 .avatar {
   border-radius: 50%;
-  background-color: $brand-2;
+  background-color: $grey-50;
   display: flex;
   &-s {
     height: 40px;
@@ -71,6 +71,7 @@ body {
   }
   img {
     object-fit: cover;
+    object-position: top;
     border-radius: 50%;
   }
 }

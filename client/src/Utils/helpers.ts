@@ -3,6 +3,9 @@ export function checkString(substring: string, str: string): boolean {
     return false;
   }
   for (let i = 0; i < substring.length; i++) {
+    if (i + 1 === str.length) {
+      return false;
+    }
     if (substring[i].toLowerCase() !== str[i].toLowerCase()) {
       return false;
     }
