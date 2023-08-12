@@ -20,6 +20,10 @@ export class UserController {
   async findUserById(@Param('id') id: string) {
     return this.userService.findOneById(id);
   }
+  @Get('getAdmins')
+  async findAdmins() {
+    return this.userService.findAdminUsers();
+  }
   @Patch('edit')
   @UseGuards(AuthGuard)
   async editUser(@Body() data: UserEditDto, @Req() req: AuthUser) {

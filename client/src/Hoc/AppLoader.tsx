@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import {
+  About,
   Auth,
   Blog,
+  Contact,
   EditUser,
   Home,
   PostPage,
@@ -71,6 +73,8 @@ const AppLoader = () => {
         <Route path="tags/:tagName/:tagId" element={<SearchPage />} />
         <Route path="search/:value" element={<SearchPage />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </AppContext.Provider>
   );

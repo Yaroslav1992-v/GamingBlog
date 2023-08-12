@@ -15,6 +15,12 @@ export class UserService {
     }
     return user;
   }
+  async findAdminUsers(): Promise<UserModel[]> {
+    const adminUsers: UserModel[] = await this.userModel.find({
+      role: 'admin',
+    });
+    return adminUsers;
+  }
   async editUser(data: UserEditDto): Promise<UserModel> {
     const existingUser = await this.userModel.findOne({ email: data.email });
     if (existingUser && existingUser._id.toString() !== data._id.toString()) {

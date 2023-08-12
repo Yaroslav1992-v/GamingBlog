@@ -7,3 +7,5 @@ export * from "./postFormPage/AddPostPage";
 export * from "./postFormPage/EditPostPage";
 export * from "./SearchPage/SearchPage";
 export * from "./BlogPage/Blog";
+export * from "./AboutPage/About";
+export * from "./ContactPage/Contact";

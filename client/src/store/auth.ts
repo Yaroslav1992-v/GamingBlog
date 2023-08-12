@@ -17,6 +17,7 @@ interface AuthState {
   error: string | null;
   auth: { userId: string | null } | null;
   currentUser: UserData | null;
+  admins: UserData[] | null;
   dataLoaded: boolean;
   isLoggedIn: boolean;
 }
@@ -26,6 +27,7 @@ const initialState: AuthState = localStorageService.getAccessToken()
       error: null,
       auth: { userId: localStorageService.getUserId() },
       currentUser: null,
+      admins: null,
       dataLoaded: false,
       isLoggedIn: true,
     }
@@ -35,6 +37,7 @@ const initialState: AuthState = localStorageService.getAccessToken()
       auth: null,
       dataLoaded: false,
       currentUser: null,
+      admins: null,
       isLoggedIn: false,
     };
 
@@ -45,9 +48,16 @@ export const authSlice = createSlice({
     authRequested: (state: AuthState) => {
       state.isLoading = true;
     },
+    adminsRequested: (state: AuthState) => {
+      state.isLoading = true;
+    },
     userReceived: (state: AuthState, action: PayloadAction<UserData>) => {
       state.dataLoaded = true;
       state.currentUser = action.payload;
+      state.isLoading = false;
+    },
+    adminsReceived: (state: AuthState, action: PayloadAction<UserData[]>) => {
+      state.admins = action.payload;
       state.isLoading = false;
     },
     userRequestFailed: (state: AuthState, action: PayloadAction<string>) => {
@@ -141,6 +151,16 @@ export const loadCurrentUser = () => async (dispatch: Dispatch) => {
     dispatch(authRequestFailed(message));
   }
 };
+export const loadAdmins = () => async (dispatch: Dispatch) => {
+  try {
+    dispatch(adminsRequested());
+    const data = await userService.loadAdmins();
+    dispatch(adminsReceived(data));
+  } catch (error: any) {
+    const message = error.response?.data?.message || "Something went wrong";
+    dispatch(authRequestFailed(message));
+  }
+};
 export const logOut = () => (dispatch: Dispatch) => {
   dispatch(loggedOut());
   localStorageService.removeAuthData();
@@ -155,7 +175,8 @@ export const getIsLoggedIn =
   (state: { auth: AuthState }): boolean => {
     return state.auth.isLoggedIn;
   };
-
+export const getAdmins = () => (state: { auth: AuthState }) =>
+  state.auth.admins;
 export const getAuthLoading =
   () =>
   (state: { auth: AuthState }): boolean =>
@@ -186,6 +207,8 @@ const {
   userEditRequested,
   userReceived,
   userEdited,
+  adminsReceived,
+  adminsRequested,
 } = actions;
 
 export default authReducer;

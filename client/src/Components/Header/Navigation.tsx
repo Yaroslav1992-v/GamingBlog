@@ -28,7 +28,7 @@ export const Navigation = () => {
     },
     {
       name: "about",
-      to: "about",
+      to: "/about",
       active: pathname.includes("about"),
     },
     {
@@ -43,7 +43,7 @@ export const Navigation = () => {
     },
     {
       name: "contact",
-      to: "contact",
+      to: "/contact",
       active: pathname.includes("contact"),
     },
     {

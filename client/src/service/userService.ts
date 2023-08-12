@@ -7,6 +7,10 @@ const userService = {
     const { data } = await httpService.get(`${apiEndPoint}getById/${id}`, {});
     return data;
   },
+  loadAdmins: async (): Promise<UserData[]> => {
+    const { data } = await httpService.get(`${apiEndPoint}getAdmins`, {});
+    return data;
+  },
   editUser: async (user: UserData): Promise<UserData> => {
     const { data } = await httpService.patch(`${apiEndPoint}edit`, {
       ...user,

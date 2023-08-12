@@ -1,0 +1,24 @@
+.contact {
+  &__container {
+    padding: 100px 15px;
+  }
+  &__title {
+    font-family: $fontFamily;
+    font-size: 48px;
+  }
+  &__contact {
+    font-weight: 600;
+    font-size: 20px;
+    span {
+      color: $info;
+    }
+  }
+}
+.container-dark {
+  .contact {
+    &__title,
+    &__contact {
+      color: $grey-100;
+    }
+  }
+}
