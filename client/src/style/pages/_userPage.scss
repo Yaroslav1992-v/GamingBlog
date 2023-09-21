@@ -2,8 +2,14 @@
   &__container {
     display: flex;
     padding: 70px 10px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__user {
+    display: flex;
     flex-wrap: wrap-reverse;
     justify-content: center;
+    margin-bottom: 30px;
   }
   &__left {
     display: flex;
@@ -51,10 +57,19 @@
   &__actions {
     display: flex;
   }
+  &__posts {
+    padding: 40px 0;
+    &-title {
+      font-size: 38px;
+      font-family: $fontFamily;
+      margin-bottom: 20px;
+    }
+  }
 }
 .container-dark {
   .user-page {
-    &__title {
+    &__title,
+    &__posts-title {
       color: $grey-100;
     }
     &__desc {

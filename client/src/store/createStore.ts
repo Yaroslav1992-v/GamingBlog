@@ -5,6 +5,7 @@ import postReducer from "./post";
 import tagsReducer from "./tags";
 import commentsReducer from "./comments";
 import notificationsReducer from "./notification";
+import userReducer from "./user";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   tags: tagsReducer,
   comment: commentsReducer,
   notification: notificationsReducer,
+  user: userReducer,
 });
 function createStore() {
   return configureStore({

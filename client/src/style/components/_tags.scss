@@ -11,6 +11,15 @@
     align-items: center;
     margin-bottom: 10px;
     position: relative;
+    transition: all ease 0.5s;
+    border: 1px solid transparent;
+    &:hover {
+      background-color: $brand;
+    }
+    &:active,
+    &:focus {
+      border-color: $primary;
+    }
     &:not(:last-child) {
       margin-right: 15px;
     }
@@ -37,6 +46,9 @@
   .tags {
     &__item {
       background-color: $grey-400;
+      &:hover {
+        background-color: $grey-700;
+      }
     }
     &__tag {
       color: $grey-50;

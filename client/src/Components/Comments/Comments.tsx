@@ -16,7 +16,6 @@ export const Comments = () => {
     }
   }, []);
   const { pathname } = useLocation();
-  console.log(pathname);
   return (
     <div className="comments">
       <h4 className="comments__title">Leave a comment</h4>

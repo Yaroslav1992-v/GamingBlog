@@ -3,10 +3,11 @@ import httpService from "./httpService";
 
 const apiEndPoint = "/user/";
 const userService = {
-  loadCurrentUser: async (id: string): Promise<UserData> => {
+  getUserById: async (id: string): Promise<UserData> => {
     const { data } = await httpService.get(`${apiEndPoint}getById/${id}`, {});
     return data;
   },
+
   loadAdmins: async (): Promise<UserData[]> => {
     const { data } = await httpService.get(`${apiEndPoint}getAdmins`, {});
     return data;

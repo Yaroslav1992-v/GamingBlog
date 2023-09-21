@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const AboutAdmin = ({ admin }: { admin: UserData }) => {
   return (
-    <Link to={`/p/${admin._id}`} className="about__admin">
+    <Link to={`/account/${admin._id}`} className="about__admin">
       <div className="about__admin-image">
         <img src={admin.image} alt="admin" />
       </div>

@@ -19,7 +19,6 @@ export class TagsController {
   }
   @Patch('tagsPlus')
   async increacePostNumberTags(@Body() { tags }: { tags: string[] }) {
-    console.log(tags);
     return this.tagsService.increacePostsNumberForTags(tags);
   }
   @Patch('tagsMinus')

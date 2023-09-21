@@ -17,6 +17,7 @@ interface PostState {
   posts: PostMinData[];
   postsBlog: PostBlogData[] | null;
   post: PostWithUser | null;
+  postsUser: PostMinData[] | null;
   searchedPosts: PostMinData[] | null;
 }
 
@@ -25,6 +26,7 @@ const initialState: PostState = {
   error: null,
   posts: [],
   post: null,
+  postsUser: null,
   postsBlog: null,
   searchedPosts: null,
 };
@@ -40,6 +42,10 @@ export const postSlice = createSlice({
       state.post = null;
       state.isLoading = true;
     },
+    postsUserRequested: (state: PostState) => {
+      state.postsUser = null;
+      state.isLoading = true;
+    },
     postBlogRequested: (state: PostState) => {
       state.postsBlog = null;
       state.isLoading = true;
@@ -49,6 +55,13 @@ export const postSlice = createSlice({
     },
     postCreated: (state: PostState, action: PayloadAction<PostMinData>) => {
       state.posts.push(action.payload);
+      state.isLoading = false;
+    },
+    postsUserReceived: (
+      state: PostState,
+      action: PayloadAction<PostMinData[]>
+    ) => {
+      state.postsUser = action.payload;
       state.isLoading = false;
     },
     postsReceived: (state: PostState, action: PayloadAction<PostMinData[]>) => {
@@ -155,6 +168,16 @@ export const getPosts = () => async (dispatch: Dispatch) => {
     dispatch(postsRequestFailed(message));
   }
 };
+export const getPostsByUserId = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(postsUserRequested());
+    const posts = await postService.loadPostsByUserId(id);
+    dispatch(postsUserReceived(posts));
+  } catch (error: any) {
+    const message = error.response?.data?.message || "Something went wrong";
+    dispatch(postsRequestFailed(message));
+  }
+};
 export const loadAllPosts = () => async (dispatch: Dispatch) => {
   try {
     dispatch(postBlogRequested());
@@ -199,6 +222,9 @@ export const loadPost = (id: string) => async (dispatch: AppDispatch) => {
 export const getPostIsLoading = () => (state: { post: PostState }) => {
   return state.post.isLoading;
 };
+export const getUserPosts = () => (state: { post: PostState }) => {
+  return state.post.postsUser;
+};
 export const getPost =
   () =>
   (state: { post: PostState }): PostWithUser | null => {
@@ -228,6 +254,8 @@ const {
   postBlogRequested,
   searchedPostsReceived,
   postCreated,
+  postsUserReceived,
+  postsUserRequested,
 } = actions;
 
 export default postReducer;

@@ -3,4 +3,5 @@ export interface PaginationProps {
   pageSize: number;
   onPageChange: (page: number) => void;
   currentPage: number;
+  divRef: React.RefObject<HTMLDivElement>;
 }

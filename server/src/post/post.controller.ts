@@ -72,6 +72,18 @@ export class PostsController {
       throw error;
     }
   }
+
+  @Get('loadPostsByUserId/:userId')
+  async findPostByUserId(@Param('userId') userId: string) {
+    try {
+      return await this.postsService.findPostsByUserId(userId);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
   @Get('loadPostsByTag/:tag')
   async findPostByTag(@Param('tag') tag: string) {
     try {

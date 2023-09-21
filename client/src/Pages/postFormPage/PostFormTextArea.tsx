@@ -14,7 +14,6 @@ export const PostFormTextArea = ({
   ) => {
     const height = textRef.current!.scrollHeight;
     textRef.current!.style.height = height + "px";
-    console.log(e);
     onChange(e);
   };
   useEffect(() => {

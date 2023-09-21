@@ -5,6 +5,7 @@
   justify-content: center;
   &__list {
     display: flex;
+    flex-wrap: wrap;
   }
 
   &__button {
@@ -24,6 +25,7 @@
     }
   }
   &__item {
+    margin-bottom: 10px;
     &:not(:last-child) {
       margin-right: 15px;
     }

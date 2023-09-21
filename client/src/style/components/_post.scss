@@ -8,6 +8,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     max-width: 1110px;
+    @include media($r-xl) {
+      justify-content: center;
+    }
   }
   &__item {
     display: flex;

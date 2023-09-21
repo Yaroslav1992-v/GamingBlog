@@ -63,17 +63,22 @@ export const EditPostPage = () => {
         post.tags,
         tags
       );
-      dispatch(decreaseTag(removedTags));
+      if (removedTags.length > 0) {
+        dispatch(decreaseTag(removedTags));
+      }
       let createdTags = await dispatch(createTags(newTags));
       createdTags = createdTags ? createdTags : [];
+      const newFors = forms.filter((f) => f.value);
       const editedPost: Post = {
         _id: post._id,
         ...postData,
-        content: [...forms],
+        content: [...newFors],
         user: userId || "",
         tags: [...existedTags, ...createdTags, ...oldTags],
       };
-      await increaseTag(oldTags);
+      if (oldTags.length > 0) {
+        await increaseTag(oldTags);
+      }
       const check = await dispatch(editPost(editedPost, post));
       if (check) {
         navigate(`/p/${post._id}`);

@@ -24,7 +24,6 @@ export class CommentsService {
     userId: Types.ObjectId,
   ): Promise<void> {
     const comment = await this.commentModel.findOne({ _id: commentId });
-    console.log(comment);
     if (comment.user.toString() !== userId.toString()) {
       throw new NotFoundException(`Unathorized`);
     }

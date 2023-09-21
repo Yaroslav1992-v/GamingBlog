@@ -47,9 +47,10 @@ export const Comment = ({
   };
   const commentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (_id === cId) {
+    if (_id === cId && commentRef.current) {
       commentRef.current!.scrollIntoView({
         behavior: "smooth",
+        block: "nearest",
       });
     }
   }, [cId]);

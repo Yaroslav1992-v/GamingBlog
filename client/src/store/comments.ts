@@ -43,9 +43,7 @@ export const CommentsSlice = createSlice({
       state.isLoading = false;
     },
     commentsRemoved: (state: CommentsState, action: PayloadAction<string>) => {
-      console.log(action);
       const comments = state.comments.filter((c) => c._id !== action.payload);
-
       state.comments = comments;
     },
     commentsEdited: (

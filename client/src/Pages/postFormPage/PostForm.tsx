@@ -33,14 +33,13 @@ export const PostForm = ({
     removeTag,
   } = usePosts();
   const postIsLoading = useSelector(getPostIsLoading());
-
   const renderForms = ({ contentName, id, value }: formsProps, i: number) => {
     if (imageError.image && !value)
       return <p className="post-form__error">Error:{imageError.image}</p>;
     else if (contentName !== "image") {
       return (
         <PostFormTextArea
-          key={i}
+          key={`form=${i}`}
           onChange={onChange}
           id={id}
           error={errors?.text}
@@ -51,7 +50,7 @@ export const PostForm = ({
     } else {
       return (
         value && (
-          <div key={i} className="post-form__preview">
+          <div key={`form=${i}`} className="post-form__preview">
             <img
               src={
                 typeof value === "string"

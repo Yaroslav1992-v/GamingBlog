@@ -13,15 +13,21 @@ export const PostContent = ({ content }: { content: formsProps[] }) => {
           <PostImage
             className="content-image"
             image={content.value}
-            key={num}
+            key={`post=${num}`}
           />
         );
       case "quote":
-        return <PostQuote quote={content.value} key={num} />;
+        return <PostQuote quote={content.value} key={`post=${num}`} />;
       case "title":
-        return <PostTitle title={content.value} className="content-title" />;
+        return (
+          <PostTitle
+            key={`post=${num}`}
+            title={content.value}
+            className="content-title"
+          />
+        );
       case "text":
-        return <PostText text={content.value} key={num} />;
+        return <PostText text={content.value} key={`post=${num}`} />;
     }
   };
   return (

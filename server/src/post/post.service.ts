@@ -12,7 +12,10 @@ export class PostsService {
   ) {}
   async createPost(post: PostDto) {
     const newPost = await this.postModel.create(post);
-    return newPost.populate('user', 'username image');
+    const postData = await (
+      await newPost.populate('user', 'username image')
+    ).populate({ path: 'tags', select: 'tagName', options: { limit: 3 } });
+    return postData;
   }
   async loadPosts(): Promise<PostModel[]> {
     const posts = await this.postModel
@@ -72,6 +75,18 @@ export class PostsService {
       .exec();
     if (!posts || posts.length === 0) {
       throw new NotFoundException(`No posts found with tag ID ${tagId}`);
+    }
+
+    return posts;
+  }
+  async findPostsByUserId(userId: string): Promise<PostModel[]> {
+    const posts = await this.postModel
+      .find({ user: userId })
+      .populate('user', 'image username')
+      .populate({ path: 'tags', select: 'tagName', options: { limit: 3 } })
+      .exec();
+    if (!posts || posts.length === 0) {
+      throw new NotFoundException(`No posts found with  userId ${userId}`);
     }
 
     return posts;

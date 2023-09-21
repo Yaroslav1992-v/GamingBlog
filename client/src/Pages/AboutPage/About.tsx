@@ -3,8 +3,8 @@ import { Box } from "../../Components";
 import { useApp } from "../../Hoc/AppLoader";
 import { AboutMission, AboutTeam, AboutTop, AboutValues } from ".";
 import { useAppDispatch } from "../../store/createStore";
-import { getAdmins, loadAdmins } from "../../store/auth";
 import { useSelector } from "react-redux";
+import { getAdmins, loadAdmins } from "../../store/user";
 
 export const About = () => {
   const { mode } = useApp();

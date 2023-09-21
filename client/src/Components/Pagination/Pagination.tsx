@@ -7,23 +7,27 @@ export const Pagination = ({
   pageSize,
   onPageChange,
   currentPage,
+  divRef,
 }: PaginationProps) => {
   const pageCount = Math.ceil(itemsCount / pageSize);
-  const pagRef = useRef<HTMLDivElement>(null);
+
   if (pageCount === 1) {
     return null;
   }
-  const handleScroll = (num: number) => {
-    console.log(pagRef.current);
 
+  const handleScroll = (num: number) => {
     onPageChange(num);
     setTimeout(() => {
-      pagRef.current?.scrollIntoView();
+      if (divRef.current) {
+        const topOffset = divRef.current?.offsetTop - 150;
+        divRef.current?.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo({ top: topOffset, behavior: "smooth" });
+      }
     }, 10);
   };
   const pages = _.range(1, pageCount + 1);
   return (
-    <div ref={pagRef} className="pagination">
+    <div className="pagination">
       <ul className="pagination__list">
         {pages.map((page) => {
           return (

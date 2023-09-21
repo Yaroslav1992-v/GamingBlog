@@ -75,8 +75,8 @@ export const RegisterForm = () => {
         />
         <div className="form__bottom">
           <CheckBoxField />
-          <Link className="form__link" to={"/forgot"}>
-            Forgot your password?
+          <Link className="form__link" to={"/auth/login"}>
+            Already Have An Account?
           </Link>
         </div>{" "}
         {authError && <p className="form__error">{authError}</p>}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useApp } from "../../Hoc/AppLoader";
 import { Box, Pagination } from "../../Components";
 import { useAppDispatch } from "../../store/createStore";
@@ -21,18 +21,22 @@ export const Blog = () => {
   const handlePageChange = (pageIndex: number) => {
     setCurrentPage(pageIndex);
   };
+  const divRef = useRef<HTMLDivElement>(null);
   return (
     <Box className="blog" mode={mode}>
       <div className="blog__container">
         {posts && (
           <>
-            <BlogList posts={postCrop} />
-            <Pagination
-              pageSize={pageSize}
-              itemsCount={posts.length}
-              onPageChange={handlePageChange}
-              currentPage={currentPage}
-            />
+            <div ref={divRef} className="blog__posts">
+              <BlogList posts={postCrop} />
+              <Pagination
+                divRef={divRef}
+                pageSize={pageSize}
+                itemsCount={posts.length}
+                onPageChange={handlePageChange}
+                currentPage={currentPage}
+              />
+            </div>
           </>
         )}
       </div>

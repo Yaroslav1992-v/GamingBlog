@@ -31,7 +31,6 @@ const fileService = {
       const deleteFile = await httpService.post(`/file/deleteByUrls`, {
         data,
       });
-      console.log(deleteFile);
     } catch (error: any) {
       console.log(error);
     }

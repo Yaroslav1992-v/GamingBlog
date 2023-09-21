@@ -28,7 +28,6 @@ export const LoginForm = ({}) => {
       navigate("/");
     }
   };
-  console.log(authError);
   return (
     <div className="form">
       <h1 className="form__title">Login</h1>
@@ -47,8 +46,8 @@ export const LoginForm = ({}) => {
         />
         <div className="form__bottom">
           <CheckBoxField />
-          <Link className="form__link" to={"/forgot"}>
-            Forgot your password?
+          <Link className="form__link" to={"/auth/register"}>
+            Dont Have An Account?
           </Link>
         </div>
         {authError && <p className="form__error">{authError}</p>}

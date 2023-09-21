@@ -19,7 +19,7 @@ export const Navigation = () => {
   const { mode, handleMode } = useApp();
   const isLoggedIn = useSelector(getIsLoggedIn());
   const { pathname } = useLocation();
-  console.log(pathname);
+
   const menu: MenuProps[] = [
     {
       name: "Home",
@@ -36,11 +36,7 @@ export const Navigation = () => {
       to: "/blog",
       active: pathname.includes("blog"),
     },
-    {
-      name: "shop",
-      to: "shop",
-      active: pathname.includes("shop"),
-    },
+
     {
       name: "contact",
       to: "/contact",
@@ -54,7 +50,12 @@ export const Navigation = () => {
   ];
   return (
     <nav className="navigation">
-      <div className="navigation__container">
+      <div
+        className={
+          "navigation__container" +
+          (mode === "dark" ? " navigation__container-dark" : "")
+        }
+      >
         <div className="navigation__left">
           {" "}
           <Logo />

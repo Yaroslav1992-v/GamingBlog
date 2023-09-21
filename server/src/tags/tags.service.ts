@@ -43,7 +43,6 @@ export class TagsService {
     return tags;
   }
   async increacePostsNumberForTags(tagIds: string[]): Promise<void> {
-    console.log(tagIds);
     for (const tagId of tagIds) {
       const tag = await this.tagsModel.findById(tagId);
       if (tag) {
